@@ -2,6 +2,7 @@ import cors from "cors";
 import express from "express";
 import morgan from "morgan";
 import env from "./config/env.js";
+import { attachAuthContext } from "./middleware/authContext.js";
 import { errorHandler, notFound } from "./middleware/errorHandler.js";
 import apiRoutes from "./routes/index.js";
 
@@ -14,8 +15,9 @@ app.use(
   })
 );
 
-app.use(express.json());
+app.use(express.json({ limit: "15mb" }));
 app.use(morgan("dev"));
+app.use(attachAuthContext);
 
 app.get("/", (req, res) => {
   res.json({

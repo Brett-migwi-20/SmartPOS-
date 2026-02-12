@@ -1,4 +1,5 @@
 import asyncHandler from "../utils/asyncHandler.js";
+import { getRolePermissions } from "../middleware/permissions.js";
 import User from "../models/User.js";
 
 export const login = asyncHandler(async (req, res) => {
@@ -24,7 +25,8 @@ export const login = asyncHandler(async (req, res) => {
       id: user._id,
       name: user.name,
       email: user.email,
-      role: user.role
+      role: user.role,
+      permissions: getRolePermissions(user.role)
     }
   });
 });

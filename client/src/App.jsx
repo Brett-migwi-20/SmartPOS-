@@ -8,6 +8,8 @@ import LoginPage from "./pages/LoginPage.jsx";
 import PosPage from "./pages/PosPage.jsx";
 import ReportsPage from "./pages/ReportsPage.jsx";
 import CategoriesPage from "./pages/CategoriesPage.jsx";
+import SalesPage from "./pages/SalesPage.jsx";
+import SettingsPage from "./pages/SettingsPage.jsx";
 
 const SESSION_KEY = "smartpos_session";
 
@@ -57,7 +59,9 @@ function App() {
         <Route path="categories" element={<CategoriesPage />} />
         <Route path="customers" element={<CustomersPage />} />
         <Route path="pos" element={<PosPage user={session?.user} />} />
+        <Route path="sales" element={<SalesPage />} />
         <Route path="reports" element={<ReportsPage />} />
+        <Route path="settings" element={<SettingsPage user={session?.user} />} />
       </Route>
 
       <Route path="*" element={<Navigate to={isAuthenticated ? "/dashboard" : "/login"} replace />} />

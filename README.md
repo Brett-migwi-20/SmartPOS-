@@ -38,6 +38,13 @@ The UI direction is based on the provided SmartPOS design templates inside `MERN
 - Category management (create/delete)
 - Product and inventory management (create/list/filter/delete)
 - Customer management (create/list/delete)
+- Dedicated Sales page with transaction filtering, expandable line-items, and CSV export
+- Comprehensive Settings area:
+  - role-aware product/category editing and publishing
+  - autosave + version history + rollback
+  - drag/drop image uploads with client-side validation, crop controls, preview, resize, thumbnail generation, and compression
+  - SEO metadata and alt text fields
+  - bulk JSON upsert and CSV import/export for products and categories
 - POS checkout flow:
   - product search/filter
   - cart and quantity handling
@@ -91,6 +98,11 @@ npm run dev
 
 - Email: `admin@smartpos.local`
 - Password: `admin123`
+- Additional seeded roles:
+  - `manager@smartpos.local / manager123`
+  - `editor@smartpos.local / editor123`
+  - `cashier@smartpos.local / cashier123`
+  - `viewer@smartpos.local / viewer123`
 
 ## API Base
 

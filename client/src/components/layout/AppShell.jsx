@@ -7,7 +7,9 @@ const navItems = [
   { path: "/categories", label: "Categories" },
   { path: "/customers", label: "Customers" },
   { path: "/pos", label: "Sales Terminal" },
-  { path: "/reports", label: "Reports" }
+  { path: "/sales", label: "Sales" },
+  { path: "/reports", label: "Reports" },
+  { path: "/settings", label: "Settings" }
 ];
 
 const routeHeadings = {
@@ -16,6 +18,8 @@ const routeHeadings = {
   "/categories": "Category Management",
   "/customers": "Customer Relationship Management",
   "/pos": "SmartPOS Sales Terminal",
+  "/sales": "Sales Operations",
+  "/settings": "Settings and Content Governance",
   "/reports": "Reports and Business Analytics"
 };
 

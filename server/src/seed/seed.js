@@ -114,12 +114,38 @@ const seed = async () => {
     }
   ]);
 
-  await User.create({
-    name: "Alex Thompson",
-    email: "admin@smartpos.local",
-    password: "admin123",
-    role: "Store Administrator"
-  });
+  await User.insertMany([
+    {
+      name: "Alex Thompson",
+      email: "admin@smartpos.local",
+      password: "admin123",
+      role: "Store Administrator"
+    },
+    {
+      name: "Maya Patel",
+      email: "manager@smartpos.local",
+      password: "manager123",
+      role: "Manager"
+    },
+    {
+      name: "Chris Walker",
+      email: "editor@smartpos.local",
+      password: "editor123",
+      role: "Editor"
+    },
+    {
+      name: "Jordan Kim",
+      email: "cashier@smartpos.local",
+      password: "cashier123",
+      role: "Cashier"
+    },
+    {
+      name: "Lee Morgan",
+      email: "viewer@smartpos.local",
+      password: "viewer123",
+      role: "Viewer"
+    }
+  ]);
 
   const espresso = products.find((product) => product.sku === "ESP-500");
   const water = products.find((product) => product.sku === "WAT-SPK");

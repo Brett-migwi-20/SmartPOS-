@@ -10,7 +10,7 @@ const generateInvoiceNumber = () => {
 };
 
 export const getSales = asyncHandler(async (req, res) => {
-  const { from, to, limit = 50 } = req.query;
+  const { from, to, limit = 50, paymentMethod, customerId, search } = req.query;
   const filter = {};
 
   if (from || to) {
@@ -23,12 +23,25 @@ export const getSales = asyncHandler(async (req, res) => {
     }
   }
 
+  if (paymentMethod) {
+    filter.paymentMethod = paymentMethod;
+  }
+
+  if (customerId) {
+    filter.customer = customerId;
+  }
+
+  if (search) {
+    filter.invoiceNumber = { $regex: search, $options: "i" };
+  }
+
   const safeLimit = Math.min(Math.max(Number(limit) || 50, 1), 200);
   const sales = await Sale.find(filter).sort({ createdAt: -1 }).limit(safeLimit).populate("customer", "name email");
   res.json(sales);
 });
 
 export const createSale = asyncHandler(async (req, res) => {
+  const actorName = req.authUser?.name || "System";
   const { items, customerId = null, paymentMethod = "card" } = req.body;
 
   if (!Array.isArray(items) || items.length === 0) {
@@ -93,7 +106,8 @@ export const createSale = asyncHandler(async (req, res) => {
     subtotal,
     tax,
     total,
-    paymentMethod
+    paymentMethod,
+    createdBy: actorName
   });
 
   const bulkOps = lineItems.map((lineItem) => ({

@@ -60,7 +60,7 @@ function LoginPage({ onLogin }) {
           </button>
         </form>
 
-        <p className="login-footer">Default login: admin@smartpos.local / admin123</p>
+        <p className="login-footer">Default login: admin@smartpos.local / admin123 (manager/editor/cashier/viewer users also seeded)</p>
       </div>
     </div>
   );
