@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Reports &amp; Business Analytics | SmartPOS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#2b8cee",
+              "background-light": "#f6f7f8",
+              "background-dark": "#101922",
+              "card-dark": "#1a2531",
+              "border-dark": "#2d3a4b",
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #2d3a4b;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display transition-colors duration-300">
+<div class="flex h-screen overflow-hidden">
+<!-- Sidebar Navigation -->
+<aside class="w-64 bg-white dark:bg-card-dark border-r border-slate-200 dark:border-border-dark flex flex-col">
+<div class="p-6 flex items-center gap-3">
+<div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+<span class="material-icons text-white">smart_toy</span>
+</div>
+<h1 class="font-bold text-xl tracking-tight">SmartPOS</h1>
+</div>
+<nav class="flex-1 px-4 space-y-1">
+<a class="flex items-center gap-3 p-3 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-primary/10 transition-colors" href="#">
+<span class="material-icons">dashboard</span>
+<span class="font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 p-3 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-primary/10 transition-colors" href="#">
+<span class="material-icons">shopping_cart</span>
+<span class="font-medium">Orders</span>
+</a>
+<a class="flex items-center gap-3 p-3 rounded-lg bg-primary text-white" href="#">
+<span class="material-icons">analytics</span>
+<span class="font-medium">Reports</span>
+</a>
+<a class="flex items-center gap-3 p-3 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-primary/10 transition-colors" href="#">
+<span class="material-icons">inventory_2</span>
+<span class="font-medium">Inventory</span>
+</a>
+<a class="flex items-center gap-3 p-3 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-primary/10 transition-colors" href="#">
+<span class="material-icons">people</span>
+<span class="font-medium">Customers</span>
+</a>
+</nav>
+<div class="p-4 border-t border-slate-200 dark:border-border-dark">
+<div class="flex items-center gap-3 p-2">
+<div class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-icons text-sm">person</span>
+</div>
+<div>
+<p class="text-sm font-semibold">Admin User</p>
+<p class="text-xs text-slate-500">Store Manager</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 overflow-y-auto custom-scrollbar p-8">
+<!-- Header Section -->
+<header class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+<div>
+<h2 class="text-3xl font-bold">Reports &amp; Business Analytics</h2>
+<p class="text-slate-500 dark:text-slate-400 mt-1">Real-time insights and business performance tracking</p>
+</div>
+<div class="flex items-center gap-3">
+<div class="flex items-center bg-white dark:bg-card-dark border border-slate-200 dark:border-border-dark rounded-lg px-3 py-2">
+<span class="material-icons text-slate-400 mr-2 text-sm">calendar_today</span>
+<select class="bg-transparent border-none text-sm font-medium focus:ring-0 p-0 pr-8">
+<option>Last 30 Days</option>
+<option>This Quarter</option>
+<option>Last 6 Months</option>
+<option>Current Year</option>
+</select>
+</div>
+<button class="bg-primary hover:bg-primary/90 text-white flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-colors shadow-lg shadow-primary/20">
+<span class="material-icons text-sm">download</span>
+                        Download Full Report
+                    </button>
+</div>
+</header>
+<!-- KPI Cards Row -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+<!-- KPI 1 -->
+<div class="bg-white dark:bg-card-dark p-6 rounded-xl border border-slate-200 dark:border-border-dark flex flex-col justify-between">
+<div class="flex items-center justify-between mb-4">
+<div class="w-10 h-10 rounded-lg bg-emerald-500/10 text-emerald-500 flex items-center justify-center">
+<span class="material-icons">payments</span>
+</div>
+<span class="text-emerald-500 text-xs font-bold flex items-center">
+<span class="material-icons text-xs">trending_up</span> +12.5%
+                        </span>
+</div>
+<div>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Total Revenue</p>
+<h3 class="text-2xl font-bold mt-1">$124,592.00</h3>
+</div>
+</div>
+<!-- KPI 2 -->
+<div class="bg-white dark:bg-card-dark p-6 rounded-xl border border-slate-200 dark:border-border-dark flex flex-col justify-between">
+<div class="flex items-center justify-between mb-4">
+<div class="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+<span class="material-icons">receipt_long</span>
+</div>
+<span class="text-emerald-500 text-xs font-bold flex items-center">
+<span class="material-icons text-xs">trending_up</span> +8.2%
+                        </span>
+</div>
+<div>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Total Orders</p>
+<h3 class="text-2xl font-bold mt-1">1,842</h3>
+</div>
+</div>
+<!-- KPI 3 -->
+<div class="bg-white dark:bg-card-dark p-6 rounded-xl border border-slate-200 dark:border-border-dark flex flex-col justify-between">
+<div class="flex items-center justify-between mb-4">
+<div class="w-10 h-10 rounded-lg bg-amber-500/10 text-amber-500 flex items-center justify-center">
+<span class="material-icons">shopping_bag</span>
+</div>
+<span class="text-rose-500 text-xs font-bold flex items-center">
+<span class="material-icons text-xs">trending_down</span> -2.4%
+                        </span>
+</div>
+<div>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Avg Order Value</p>
+<h3 class="text-2xl font-bold mt-1">$67.64</h3>
+</div>
+</div>
+<!-- KPI 4 -->
+<div class="bg-white dark:bg-card-dark p-6 rounded-xl border border-slate-200 dark:border-border-dark flex flex-col justify-between">
+<div class="flex items-center justify-between mb-4">
+<div class="w-10 h-10 rounded-lg bg-purple-500/10 text-purple-500 flex items-center justify-center">
+<span class="material-icons">group_add</span>
+</div>
+<span class="text-emerald-500 text-xs font-bold flex items-center">
+<span class="material-icons text-xs">trending_up</span> +14.1%
+                        </span>
+</div>
+<div>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">New Customers</p>
+<h3 class="text-2xl font-bold mt-1">428</h3>
+</div>
+</div>
+</div>
+<!-- Visualizations Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+<!-- Monthly Revenue Trends (Line Chart Placeholder) -->
+<div class="lg:col-span-2 bg-white dark:bg-card-dark p-6 rounded-xl border border-slate-200 dark:border-border-dark">
+<div class="flex items-center justify-between mb-8">
+<div>
+<h4 class="font-bold text-lg">Monthly Revenue Trends</h4>
+<p class="text-sm text-slate-500">Sales performance over the last 12 months</p>
+</div>
+<div class="flex items-center gap-2">
+<div class="flex items-center gap-1">
+<span class="w-3 h-3 rounded-full bg-primary"></span>
+<span class="text-xs text-slate-500">Revenue</span>
+</div>
+<div class="flex items-center gap-1 ml-2">
+<span class="w-3 h-3 rounded-full bg-primary/30"></span>
+<span class="text-xs text-slate-500">Previous</span>
+</div>
+</div>
+</div>
+<div class="relative h-64 w-full flex items-end justify-between px-2">
+<!-- Simplified Bar/Line visualization concept with CSS -->
+<div class="w-full h-full flex items-end justify-between gap-4 group">
+<div class="flex-1 bg-primary/20 h-[40%] rounded-t-sm relative transition-all hover:bg-primary/40"><div class="absolute -top-1 left-0 right-0 h-1 bg-primary rounded-full"></div></div>
+<div class="flex-1 bg-primary/20 h-[55%] rounded-t-sm relative transition-all hover:bg-primary/40"><div class="absolute -top-1 left-0 right-0 h-1 bg-primary rounded-full"></div></div>
+<div class="flex-1 bg-primary/20 h-[45%] rounded-t-sm relative transition-all hover:bg-primary/40"><div class="absolute -top-1 left-0 right-0 h-1 bg-primary rounded-full"></div></div>
+<div class="flex-1 bg-primary/20 h-[70%] rounded-t-sm relative transition-all hover:bg-primary/40"><div class="absolute -top-1 left-0 right-0 h-1 bg-primary rounded-full"></div></div>
+<div class="flex-1 bg-primary/20 h-[65%] rounded-t-sm relative transition-all hover:bg-primary/40"><div class="absolute -top-1 left-0 right-0 h-1 bg-primary rounded-full"></div></div>
+<div class="flex-1 bg-primary/20 h-[85%] rounded-t-sm relative transition-all hover:bg-primary/40"><div class="absolute -top-1 left-0 right-0 h-1 bg-primary rounded-full"></div></div>
+<div class="flex-1 bg-primary h-[95%] rounded-t-sm relative transition-all hover:bg-primary"></div>
+<div class="flex-1 bg-primary/20 h-[80%] rounded-t-sm relative transition-all hover:bg-primary/40"><div class="absolute -top-1 left-0 right-0 h-1 bg-primary rounded-full"></div></div>
+<div class="flex-1 bg-primary/20 h-[75%] rounded-t-sm relative transition-all hover:bg-primary/40"><div class="absolute -top-1 left-0 right-0 h-1 bg-primary rounded-full"></div></div>
+<div class="flex-1 bg-primary/20 h-[90%] rounded-t-sm relative transition-all hover:bg-primary/40"><div class="absolute -top-1 left-0 right-0 h-1 bg-primary rounded-full"></div></div>
+<div class="flex-1 bg-primary/20 h-[60%] rounded-t-sm relative transition-all hover:bg-primary/40"><div class="absolute -top-1 left-0 right-0 h-1 bg-primary rounded-full"></div></div>
+<div class="flex-1 bg-primary/20 h-[50%] rounded-t-sm relative transition-all hover:bg-primary/40"><div class="absolute -top-1 left-0 right-0 h-1 bg-primary rounded-full"></div></div>
+</div>
+</div>
+<div class="flex justify-between mt-4 text-[10px] uppercase font-bold text-slate-400">
+<span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span>
+</div>
+</div>
+<!-- Sales by Category (Pie Chart Placeholder) -->
+<div class="bg-white dark:bg-card-dark p-6 rounded-xl border border-slate-200 dark:border-border-dark">
+<h4 class="font-bold text-lg mb-1">Top Categories</h4>
+<p class="text-sm text-slate-500 mb-8">Revenue share per category</p>
+<div class="flex flex-col items-center">
+<div class="relative w-48 h-48 rounded-full border-[12px] border-slate-100 dark:border-slate-800 flex items-center justify-center">
+<div class="absolute top-0 left-0 w-full h-full rounded-full border-[12px] border-primary border-t-transparent border-l-transparent -rotate-45"></div>
+<div class="absolute top-0 left-0 w-full h-full rounded-full border-[12px] border-purple-500 border-b-transparent border-r-transparent rotate-12"></div>
+<div class="text-center">
+<span class="text-2xl font-bold">74%</span>
+<p class="text-[10px] text-slate-500 uppercase tracking-widest">Main Sales</p>
+</div>
+</div>
+<div class="mt-8 w-full space-y-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="text-sm">Electronics</span>
+</div>
+<span class="text-sm font-semibold">42%</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-purple-500"></span>
+<span class="text-sm">Clothing</span>
+</div>
+<span class="text-sm font-semibold">32%</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-amber-500"></span>
+<span class="text-sm">Home &amp; Living</span>
+</div>
+<span class="text-sm font-semibold">18%</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-slate-400"></span>
+<span class="text-sm">Others</span>
+</div>
+<span class="text-sm font-semibold">8%</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Best Selling Products Table -->
+<div class="bg-white dark:bg-card-dark rounded-xl border border-slate-200 dark:border-border-dark overflow-hidden">
+<div class="p-6 border-b border-slate-200 dark:border-border-dark flex items-center justify-between">
+<div>
+<h4 class="font-bold text-lg">Best Selling Products</h4>
+<p class="text-sm text-slate-500">Top 5 performers based on volume</p>
+</div>
+<button class="text-primary text-sm font-semibold hover:underline">View All Inventory</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="bg-slate-50 dark:bg-slate-800/50 text-slate-500 dark:text-slate-400 text-xs uppercase tracking-wider">
+<th class="px-6 py-4 font-bold">Product</th>
+<th class="px-6 py-4 font-bold">Category</th>
+<th class="px-6 py-4 font-bold">Sold</th>
+<th class="px-6 py-4 font-bold text-right">Revenue</th>
+<th class="px-6 py-4 font-bold text-center">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 dark:divide-border-dark">
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded object-cover" data-alt="Modern white wireless wristwatch on white background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsodNnvxfQbGf1rdBvw-h3_hA-vEYAIN9CX-1EyMNc6TOJOnZtuj70c1WlKBYYbuKzcgoo1_xR_h-Z1-rcfc9aH5S_Qq1DrmcVE6ifkrT1HYVW4FDs-eC7zKSVwOt7rUFGS5C9A3pXH4i2dtks7hs9WL_t2j4oNa-seSzF5Sl0URrDQmROTBHA3Z1GoLDo61YJOmRwZirIPujA1D8LqBoFAi-d3W1LblH1YzC8pOpLLDjEA-a-QroNAIPjyvom8j91FqWOM8ONy66S"/>
+<div>
+<p class="font-semibold text-sm">Pro Wireless Watch 5</p>
+<p class="text-xs text-slate-500 uppercase">SKU: PW5-001</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-sm">Electronics</td>
+<td class="px-6 py-4 text-sm font-medium">842 units</td>
+<td class="px-6 py-4 text-sm font-bold text-right">$24,312.50</td>
+<td class="px-6 py-4 text-center">
+<span class="px-2 py-1 bg-emerald-500/10 text-emerald-500 text-[10px] font-bold rounded-full uppercase">In Stock</span>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded object-cover" data-alt="Premium black wireless headphones with studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBT-QYxgKWn961D5KmTCauqMUEAOrjJorKI2wYbWljfzYOzhf5xypdEz5GRpzSmnhQ5JohkuLhWi2gEsK8bcGJGpfCPVaZMyyi3ifhS2EfGdKX3e4W2CgPZd8gJNA8faoWmLcejSl2pUWyWpSnVfc-lE_o9xU2nNbPDTZO0evoduu71VH5bIqGCGrCPNS6z7utIsptIEVFJxrfa8t-aNbxvetWzngemjxfxTKv7_4mxDbDJsZNl3GxJEFGLgequgN6D6z1MJizeNzw6"/>
+<div>
+<p class="font-semibold text-sm">Acoustics Noise-Cancelling</p>
+<p class="text-xs text-slate-500 uppercase">SKU: ANC-X2</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-sm">Electronics</td>
+<td class="px-6 py-4 text-sm font-medium">654 units</td>
+<td class="px-6 py-4 text-sm font-bold text-right">$18,920.00</td>
+<td class="px-6 py-4 text-center">
+<span class="px-2 py-1 bg-emerald-500/10 text-emerald-500 text-[10px] font-bold rounded-full uppercase">In Stock</span>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded object-cover" data-alt="Red sport running shoe on plain background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAopr31v3j5m5daHxk4JF7nUNIkV0bIRLmwzkklQYidNqZHtIdJGOfwI922_DVUxlrWeYbhVWbpYY6uM0Q5Hik1OF-DgxsyAoQwq1A_7f-CCF8vUBauj9ZWdtumdNTTl9KcCgYPxBglBT1Js_E_R8dzgs2Al_JK3MM3gSp1bRBVsHaNLL0pxqvVhVzAaHh7rY7un4h_Zu6dRHCJE6g6IImUsKdZXpTI_ntOgNr65W6V6CPVtaIeVXoEciS8AxH5i9CrIgNwLC8HDFhE"/>
+<div>
+<p class="font-semibold text-sm">Turbo Runner Sport</p>
+<p class="text-xs text-slate-500 uppercase">SKU: TR-90</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-sm">Clothing</td>
+<td class="px-6 py-4 text-sm font-medium">512 units</td>
+<td class="px-6 py-4 text-sm font-bold text-right">$12,800.00</td>
+<td class="px-6 py-4 text-center">
+<span class="px-2 py-1 bg-amber-500/10 text-amber-500 text-[10px] font-bold rounded-full uppercase">Low Stock</span>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded object-cover" data-alt="Classic vintage camera on minimalist background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJT4xFay1YC-S5gtfZxsAaKT1R0LudlJBcmvj5kEC-sikdRHEKb_lA5jR6xViXPR9UXKjcQHVARah32zp5dT4DHKHa-8Al54sESg_Xiifd0T_jGXO73jaCLK4fGUZbbXDQf84htdGPiidUJGoMFPdeS5dW8FlX9ed_U-NTA5eANNUKqy_AwgVtAfWhZupe1VhOWn0iUoz6ToZOSt9iQxZTKJN1GBcJS6-4YViUZsLkqwZe_xE9WLaQ11Av6QiDWys71byfIVO7uRIL"/>
+<div>
+<p class="font-semibold text-sm">Retro Capture Camera</p>
+<p class="text-xs text-slate-500 uppercase">SKU: RC-VNTG</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-sm">Electronics</td>
+<td class="px-6 py-4 text-sm font-medium">420 units</td>
+<td class="px-6 py-4 text-sm font-bold text-right">$10,490.00</td>
+<td class="px-6 py-4 text-center">
+<span class="px-2 py-1 bg-rose-500/10 text-rose-500 text-[10px] font-bold rounded-full uppercase">Out of Stock</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<footer class="mt-8 pt-8 border-t border-slate-200 dark:border-border-dark flex justify-between text-slate-500 text-xs">
+<p>© 2024 SmartPOS Enterprise Solution. All rights reserved.</p>
+<div class="flex gap-4">
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
+</div>
+</footer>
+</main>
+</div>
+</body></html>

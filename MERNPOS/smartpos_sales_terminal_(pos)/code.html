@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SmartPOS Sales Terminal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2b8cee",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                        "surface-dark": "#1a2632",
+                        "border-dark": "#2d3a4b",
+                        "success": "#22c55e"
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #2d3a4b; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #3f4e60; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 h-screen overflow-hidden flex flex-col">
+<!-- Header -->
+<header class="h-16 border-b border-slate-200 dark:border-border-dark flex items-center justify-between px-6 bg-white dark:bg-surface-dark shrink-0">
+<div class="flex items-center space-x-4">
+<div class="flex items-center bg-primary p-2 rounded-lg">
+<span class="material-icons text-white">point_of_sale</span>
+</div>
+<h1 class="text-xl font-bold tracking-tight">SmartPOS <span class="text-primary">Terminal</span></h1>
+</div>
+<div class="flex items-center space-x-6">
+<div class="hidden md:flex flex-col items-end">
+<span class="text-sm font-semibold">Alex Thompson</span>
+<span class="text-xs text-slate-400">Station 04 • Store #21</span>
+</div>
+<div class="h-10 w-10 rounded-full bg-slate-200 dark:bg-border-dark flex items-center justify-center">
+<span class="material-icons text-primary">account_circle</span>
+</div>
+<div class="flex items-center space-x-2 border-l border-slate-200 dark:border-border-dark pl-6">
+<div class="h-2 w-2 rounded-full bg-success"></div>
+<span class="text-xs uppercase font-bold tracking-widest text-slate-400">Online</span>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-1 flex overflow-hidden">
+<!-- Product Catalog (Left) -->
+<section class="flex-1 flex flex-col min-w-0 bg-background-light dark:bg-background-dark">
+<!-- Search and Filter Bar -->
+<div class="p-4 space-y-4">
+<div class="flex space-x-4">
+<div class="relative flex-1">
+<span class="material-icons absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+<input class="w-full pl-10 pr-4 py-3 rounded-lg bg-white dark:bg-surface-dark border-transparent focus:ring-2 focus:ring-primary focus:border-transparent text-sm" placeholder="Scan barcode or search products (F2)..." type="text"/>
+</div>
+<button class="bg-white dark:bg-surface-dark p-3 rounded-lg border border-transparent hover:border-primary transition-colors">
+<span class="material-icons text-slate-400">filter_list</span>
+</button>
+</div>
+<!-- Category Tabs -->
+<div class="flex space-x-2 overflow-x-auto pb-2 no-scrollbar">
+<button class="px-5 py-2 rounded-full bg-primary text-white text-sm font-medium whitespace-nowrap">All Items</button>
+<button class="px-5 py-2 rounded-full bg-white dark:bg-surface-dark text-slate-600 dark:text-slate-300 text-sm font-medium whitespace-nowrap border border-transparent hover:border-primary/50">Beverages</button>
+<button class="px-5 py-2 rounded-full bg-white dark:bg-surface-dark text-slate-600 dark:text-slate-300 text-sm font-medium whitespace-nowrap border border-transparent hover:border-primary/50">Bakery</button>
+<button class="px-5 py-2 rounded-full bg-white dark:bg-surface-dark text-slate-600 dark:text-slate-300 text-sm font-medium whitespace-nowrap border border-transparent hover:border-primary/50">Dairy</button>
+<button class="px-5 py-2 rounded-full bg-white dark:bg-surface-dark text-slate-600 dark:text-slate-300 text-sm font-medium whitespace-nowrap border border-transparent hover:border-primary/50">Produce</button>
+<button class="px-5 py-2 rounded-full bg-white dark:bg-surface-dark text-slate-600 dark:text-slate-300 text-sm font-medium whitespace-nowrap border border-transparent hover:border-primary/50">Snacks</button>
+<button class="px-5 py-2 rounded-full bg-white dark:bg-surface-dark text-slate-600 dark:text-slate-300 text-sm font-medium whitespace-nowrap border border-transparent hover:border-primary/50">Frozen</button>
+</div>
+</div>
+<!-- Scrollable Grid -->
+<div class="flex-1 overflow-y-auto px-4 pb-6">
+<div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
+<!-- Product Card -->
+<div class="bg-white dark:bg-surface-dark rounded-xl overflow-hidden border border-transparent hover:border-primary transition-all cursor-pointer group flex flex-col">
+<div class="aspect-square relative overflow-hidden bg-slate-100 dark:bg-slate-800">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" data-alt="Premium organic espresso beans bag" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEPIonAs9E5-dojCyy-0cg7_mwyzncHOmckI3DUWvIXKQPpBMDGUFbQcVJSaKQ106gV8HliBtKvorSsINxZ-8r1jue4EAKiDKABD6r4uM62Nx1kZRGNswvBZN-XcauAqv8uoqFw5Qn2aQCVRmQa3RHWEkkhB3P4TdKDucQBlT3bEOme0am0vKMvierWXNMHFSCf4GzbZHPc_getRuPnMonNopnUDPgQfsArMe9bFMQ9Gp6yrbwEo4owQSEciX0rByM3KR7UimhclCC"/>
+<div class="absolute top-2 right-2 bg-primary/90 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-1 rounded">
+                                42 IN STOCK
+                            </div>
+</div>
+<div class="p-3 flex-1 flex flex-col justify-between">
+<h3 class="text-sm font-semibold line-clamp-2">Organic Espresso Beans (500g)</h3>
+<div class="flex items-center justify-between mt-2">
+<span class="text-primary font-bold">$18.50</span>
+<span class="material-icons text-slate-300 group-hover:text-primary transition-colors">add_circle</span>
+</div>
+</div>
+</div>
+<!-- Product Card -->
+<div class="bg-white dark:bg-surface-dark rounded-xl overflow-hidden border border-transparent hover:border-primary transition-all cursor-pointer group flex flex-col">
+<div class="aspect-square relative overflow-hidden bg-slate-100 dark:bg-slate-800">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" data-alt="Fresh sourdough artisan bread loaf" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB29-2eaG6kzXf4UFMVqapdph5RIFfasDij8Dw2ijYxVB8sgzDtgiaUCrq_NI6rkj4rzH5W0dY6HuN0vJk8JWH-SAK_KcDEsjo25OCukkuL8KCvsY66XA_JOINtsLPjnoG_CkvD7CmnByIyvZMWjUSClw5HriloAlMneWXFQmZZgblivm4ckJV5hrMmaNOb2sbnubrFr3r5txLFwRAyv_xpSwBT9eWPdZ6zZ40xZTgxRap2KcNq1IAhk6wVASXmkQ-4t00f64Hu8E6G"/>
+<div class="absolute top-2 right-2 bg-primary/90 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-1 rounded">
+                                12 IN STOCK
+                            </div>
+</div>
+<div class="p-3 flex-1 flex flex-col justify-between">
+<h3 class="text-sm font-semibold line-clamp-2">Artisan Sourdough Loaf</h3>
+<div class="flex items-center justify-between mt-2">
+<span class="text-primary font-bold">$6.25</span>
+<span class="material-icons text-slate-300 group-hover:text-primary transition-colors">add_circle</span>
+</div>
+</div>
+</div>
+<!-- Product Card -->
+<div class="bg-white dark:bg-surface-dark rounded-xl overflow-hidden border border-transparent hover:border-primary transition-all cursor-pointer group flex flex-col">
+<div class="aspect-square relative overflow-hidden bg-slate-100 dark:bg-slate-800">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" data-alt="Cold refreshing sparking water bottle" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2K_LZuxhXV-7bZDx2vY2AFMR9sQDttYbNN4JtJTDPHrpc1jvobrT7EjWhCJMaznqVLMyvR3DpKPsrc40Oo-yX3ycdys6blCg3B9G6tAqWtG4yqFxvfeRzuJiSNRjzbFwlZfM58RXDSYkHpiVuG2aQdg6_JPslvzKnyMaPrueE5g8xldkmOxi6KpBTWG-IswPieO32XxDO0uXNpIwwAjx7SeN_B1vnYDEnC4FeBh2ZcqxX7p2-HcKeySmEm_TJPSvuUkHjMWBDhN2M"/>
+<div class="absolute top-2 right-2 bg-primary/90 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-1 rounded">
+                                156 IN STOCK
+                            </div>
+</div>
+<div class="p-3 flex-1 flex flex-col justify-between">
+<h3 class="text-sm font-semibold line-clamp-2">Sparkling Mineral Water (1L)</h3>
+<div class="flex items-center justify-between mt-2">
+<span class="text-primary font-bold">$2.99</span>
+<span class="material-icons text-slate-300 group-hover:text-primary transition-colors">add_circle</span>
+</div>
+</div>
+</div>
+<!-- Product Card -->
+<div class="bg-white dark:bg-surface-dark rounded-xl overflow-hidden border border-transparent hover:border-primary transition-all cursor-pointer group flex flex-col">
+<div class="aspect-square relative overflow-hidden bg-slate-100 dark:bg-slate-800">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" data-alt="Pack of sea salt chocolate chip cookies" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyJ5ApwqlMDvtjji7bEDakljTBb6P8MGC2hY5dHm5Uz8LJv7DXKpww3YgFyAQOOLkzIXKkslQ13NeUD2kS_-XWfkSm0U_-gbPvbii6vDjHvU7A46l-fQZr_KquGe8J2mlpMWhpMEiLGqEmlsYT_C5juAjPaVr86Wnz2Ml1xW_RtVN-Pw-d1pdxLLtZsJ0BPeAOkL7m_5t1ai3rNwBwzTxL07Gj_3VDFg2O0RpbS1bQTx2-32bGVwf_0pJZIjZHhukYXVI7FlAoAQE_"/>
+<div class="absolute top-2 right-2 bg-primary/90 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-1 rounded">
+                                28 IN STOCK
+                            </div>
+</div>
+<div class="p-3 flex-1 flex flex-col justify-between">
+<h3 class="text-sm font-semibold line-clamp-2">Sea Salt Dark Choc Cookies</h3>
+<div class="flex items-center justify-between mt-2">
+<span class="text-primary font-bold">$4.50</span>
+<span class="material-icons text-slate-300 group-hover:text-primary transition-colors">add_circle</span>
+</div>
+</div>
+</div>
+<!-- Product Card -->
+<div class="bg-white dark:bg-surface-dark rounded-xl overflow-hidden border border-transparent hover:border-primary transition-all cursor-pointer group flex flex-col">
+<div class="aspect-square relative overflow-hidden bg-slate-100 dark:bg-slate-800">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" data-alt="Whole milk carton dairy product" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWI531tN7F60B9gfZo9fIQf6mtiIevXa_x66bugXQVpDIjLjLSrq8FNq4TKze6C5tDA4IFDN7Q8MJdbnpMyoeJv98P1hSXV8-MZWJg9P9Rt5uKj0SlKLdQIjcIW1xjifFDEfUIk66d4jVjj36OIVeTP-6Tj7gR2CbGSx6NfdBq7bFlueW4rdE9O6O20tADv6q5sPeHPACeiOEEmP-rj8Vg6uyug4s-jQuVWcbwK6zkMWnjtk3OSok-sHTubtNAU_dNerCEIielyYee"/>
+<div class="absolute top-2 right-2 bg-orange-500/90 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-1 rounded">
+                                LOW STOCK: 3
+                            </div>
+</div>
+<div class="p-3 flex-1 flex flex-col justify-between">
+<h3 class="text-sm font-semibold line-clamp-2">Full Cream Milk (2L)</h3>
+<div class="flex items-center justify-between mt-2">
+<span class="text-primary font-bold">$5.80</span>
+<span class="material-icons text-slate-300 group-hover:text-primary transition-colors">add_circle</span>
+</div>
+</div>
+</div>
+<!-- Product Card -->
+<div class="bg-white dark:bg-surface-dark rounded-xl overflow-hidden border border-transparent hover:border-primary transition-all cursor-pointer group flex flex-col">
+<div class="aspect-square relative overflow-hidden bg-slate-100 dark:bg-slate-800">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" data-alt="Double cream greek yogurt tub" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9KMaXgSVRDkicFKsSTTfCEcHTvvwXrSBa1O65ZEI-7J7TTlfAXnIdkPvSs8FxdyfbHzuqGbZRo46YYHxI3rHGbynh9hbkZqabx3x5kfHP8hyfyUXyIK1VLmKG1TQVjBOjz-4Bxw_zXiQilXm9laq0RLmfofaaRm39b6yO2qtD5Bom2mE3M2tIp4_5mqDVW9pm7stQq3A4MxKpicoNPMPCZqd0YMQ5dZ1FWcVB3SnqR62m_XfTlH6RBdNVD-i7BBoSaYz70MeesJ_p"/>
+<div class="absolute top-2 right-2 bg-primary/90 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-1 rounded">
+                                15 IN STOCK
+                            </div>
+</div>
+<div class="p-3 flex-1 flex flex-col justify-between">
+<h3 class="text-sm font-semibold line-clamp-2">Greek Yogurt Plain (500g)</h3>
+<div class="flex items-center justify-between mt-2">
+<span class="text-primary font-bold">$7.20</span>
+<span class="material-icons text-slate-300 group-hover:text-primary transition-colors">add_circle</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Cart Sidebar (Right) -->
+<aside class="w-96 border-l border-slate-200 dark:border-border-dark flex flex-col bg-white dark:bg-surface-dark shrink-0">
+<!-- Cart Header -->
+<div class="p-4 border-b border-slate-200 dark:border-border-dark flex justify-between items-center">
+<div class="flex items-center space-x-2">
+<span class="material-icons text-primary">shopping_basket</span>
+<h2 class="font-bold text-lg uppercase tracking-wider">Current Cart</h2>
+</div>
+<button class="text-xs font-bold text-red-500 hover:text-red-600 px-2 py-1 uppercase tracking-tighter">Clear All</button>
+</div>
+<!-- Cart Items List -->
+<div class="flex-1 overflow-y-auto p-4 space-y-4">
+<!-- Cart Item -->
+<div class="flex items-start space-x-3">
+<div class="h-14 w-14 rounded-lg overflow-hidden bg-slate-100 shrink-0">
+<img class="h-full w-full object-cover" data-alt="Espresso beans preview" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOxBvs4t3Sj8PITL46XBzC-JPkLep1T8e3pcu-_vPO8mLGMSEpy4CME4T-fjiK3w_27ZEebQTD0AKy79oYsmtyQgX_IoPK56JJyxq6Z3-_R6wcVBp7x7NbzGPr_OV4wi25631vpr3e10eOx9g7lnLsIl5isDsLopV4ARP7ymA6ttoq_6dFotZ7V_wpcmELKsAzKlbw9ll7qRKGPt0FwiCJrXIvlwZi4BrGSrbIm8G30q3rl2XE-S1AOovAT0hd_gFz51w2tfs8y01q"/>
+</div>
+<div class="flex-1 min-w-0">
+<h4 class="text-sm font-medium truncate">Organic Espresso Beans</h4>
+<div class="flex items-center justify-between mt-1">
+<div class="flex items-center bg-slate-100 dark:bg-background-dark rounded-full p-0.5 border border-slate-200 dark:border-border-dark">
+<button class="h-6 w-6 flex items-center justify-center hover:text-primary"><span class="material-icons text-sm">remove</span></button>
+<span class="px-2 text-xs font-bold">1</span>
+<button class="h-6 w-6 flex items-center justify-center hover:text-primary"><span class="material-icons text-sm">add</span></button>
+</div>
+<span class="text-sm font-bold">$18.50</span>
+</div>
+</div>
+</div>
+<!-- Cart Item -->
+<div class="flex items-start space-x-3">
+<div class="h-14 w-14 rounded-lg overflow-hidden bg-slate-100 shrink-0">
+<img class="h-full w-full object-cover" data-alt="Sourdough loaf preview" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9KOaz3E7dVow3yHfmXaWPiDxdyLciEYw0H4kFQo75hz65ezC93Sq67d78NHmImDRZNKO6u4NDe5s286A8Zl84nUudnSh-_lum9lLhaAwT3LMUhxQzihTUr2_DdOMB1cLfZbw0Ln6f2wMv2JbLrBj5i5Y9myYmadpC5dZUR4z2mljXLqG6L-ABeKllup9gmca1p5ZPaqRWpJwVOxOxqGhlTlFwuVw0l9bH9dwJXzXLYvMVQTSlEUKOTT9EgQm8SNu58QXuWVnrJnSA"/>
+</div>
+<div class="flex-1 min-w-0">
+<h4 class="text-sm font-medium truncate">Artisan Sourdough Loaf</h4>
+<div class="flex items-center justify-between mt-1">
+<div class="flex items-center bg-slate-100 dark:bg-background-dark rounded-full p-0.5 border border-slate-200 dark:border-border-dark">
+<button class="h-6 w-6 flex items-center justify-center hover:text-primary"><span class="material-icons text-sm">remove</span></button>
+<span class="px-2 text-xs font-bold">2</span>
+<button class="h-6 w-6 flex items-center justify-center hover:text-primary"><span class="material-icons text-sm">add</span></button>
+</div>
+<span class="text-sm font-bold">$12.50</span>
+</div>
+</div>
+</div>
+<!-- Cart Item -->
+<div class="flex items-start space-x-3">
+<div class="h-14 w-14 rounded-lg overflow-hidden bg-slate-100 shrink-0">
+<img class="h-full w-full object-cover" data-alt="Sparkling water preview" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2HWuokZ0Yq-CqkkY5DuVKPv60HtceMIDwoZIdW1zniZc6zEUtxZfc4Gh48G_t9sDYs2Uq7rAh7z10hzQ22NSvzv0EyQkGPoZfupGj_IvhwjezELokGPZaHYaQSKdi_a1rkT9ABl2qHrQOFWtISbotB2yUcd8SCqf0DFdC2zYgV-IF7AR3TlxE8NXaIVb6Dv2TV_44LIi2NfkUEvscOD31Qs5iHXH1N1zuokivwaGVPso1GOxi1fyhO_kCkN1WYuOTXENzf3QN9ZVQ"/>
+</div>
+<div class="flex-1 min-w-0">
+<h4 class="text-sm font-medium truncate">Sparkling Mineral Water</h4>
+<div class="flex items-center justify-between mt-1">
+<div class="flex items-center bg-slate-100 dark:bg-background-dark rounded-full p-0.5 border border-slate-200 dark:border-border-dark">
+<button class="h-6 w-6 flex items-center justify-center hover:text-primary"><span class="material-icons text-sm">remove</span></button>
+<span class="px-2 text-xs font-bold">3</span>
+<button class="h-6 w-6 flex items-center justify-center hover:text-primary"><span class="material-icons text-sm">add</span></button>
+</div>
+<span class="text-sm font-bold">$8.97</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Cart Summary -->
+<div class="p-6 bg-slate-50 dark:bg-background-dark/50 border-t border-slate-200 dark:border-border-dark space-y-4">
+<div class="space-y-2">
+<div class="flex justify-between text-sm">
+<span class="text-slate-500">Subtotal</span>
+<span>$39.97</span>
+</div>
+<div class="flex justify-between text-sm">
+<span class="text-slate-500">Tax (8%)</span>
+<span>$3.20</span>
+</div>
+<div class="flex items-center space-x-3 pt-2">
+<div class="relative flex-1">
+<input class="w-full pl-3 pr-3 py-2 text-xs rounded-lg bg-white dark:bg-surface-dark border-slate-200 dark:border-border-dark focus:ring-primary" placeholder="Promo Code" type="text"/>
+</div>
+<button class="bg-primary/10 text-primary text-xs font-bold px-4 py-2 rounded-lg hover:bg-primary/20 transition-colors uppercase tracking-widest">Apply</button>
+</div>
+</div>
+<div class="pt-4 border-t border-slate-200 dark:border-border-dark flex justify-between items-baseline">
+<span class="text-lg font-bold">Total</span>
+<span class="text-3xl font-black text-primary">$43.17</span>
+</div>
+<!-- Payment Methods -->
+<div class="grid grid-cols-3 gap-2 py-2">
+<button class="flex flex-col items-center justify-center p-3 rounded-xl border-2 border-primary bg-primary/5 text-primary">
+<span class="material-icons">payments</span>
+<span class="text-[10px] font-bold mt-1 uppercase">Cash</span>
+</button>
+<button class="flex flex-col items-center justify-center p-3 rounded-xl border-2 border-transparent bg-white dark:bg-surface-dark text-slate-400 hover:border-primary/50 transition-colors">
+<span class="material-icons">credit_card</span>
+<span class="text-[10px] font-bold mt-1 uppercase">Card</span>
+</button>
+<button class="flex flex-col items-center justify-center p-3 rounded-xl border-2 border-transparent bg-white dark:bg-surface-dark text-slate-400 hover:border-primary/50 transition-colors">
+<span class="material-icons">qr_code_2</span>
+<span class="text-[10px] font-bold mt-1 uppercase">QR Scan</span>
+</button>
+</div>
+<!-- Checkout Button -->
+<button class="w-full py-4 bg-success hover:bg-success/90 text-white rounded-xl font-bold flex items-center justify-center space-x-2 shadow-lg shadow-success/20 transition-all transform hover:scale-[1.02] active:scale-[0.98]">
+<span class="material-icons">check_circle</span>
+<span class="uppercase tracking-widest">Complete Sale</span>
+</button>
+<p class="text-[10px] text-center text-slate-400 font-medium">Press <kbd class="px-1 bg-slate-200 dark:bg-border-dark rounded">Enter</kbd> to quickly finalize payment</p>
+</div>
+</aside>
+</main>
+<!-- Bottom Utility Bar -->
+<footer class="h-10 bg-slate-100 dark:bg-surface-dark border-t border-slate-200 dark:border-border-dark px-4 flex items-center justify-between text-[11px] text-slate-500 font-medium shrink-0">
+<div class="flex space-x-6">
+<span class="flex items-center"><span class="material-icons text-xs mr-1">keyboard</span> Shortcuts: F2 Search, F4 Customers, F10 Settings</span>
+<span class="flex items-center"><span class="material-icons text-xs mr-1">history</span> Recent Transactions</span>
+</div>
+<div class="flex items-center space-x-4">
+<span class="text-primary">Last synced: Just now</span>
+<span class="flex items-center"><span class="material-icons text-xs mr-1">schedule</span> 14:42:05 PM</span>
+</div>
+</footer>
+</body></html>

@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SmartPOS | User &amp; Role Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2b8cee",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                        "surface-dark": "#1a2632",
+                        "border-dark": "#2d3a4b"
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .status-pulse {
+            position: relative;
+        }
+        .status-pulse::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: #10b981;
+            border-radius: 50%;
+            top: 50%;
+            left: -12px;
+            transform: translateY(-50%);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen font-display">
+<!-- Sidebar Navigation (Mock) -->
+<aside class="fixed left-0 top-0 h-full w-64 bg-white dark:bg-surface-dark border-r border-slate-200 dark:border-border-dark hidden lg:flex flex-col">
+<div class="p-6 flex items-center gap-3">
+<div class="w-8 h-8 bg-primary rounded flex items-center justify-center">
+<span class="material-icons text-white text-sm">point_of_sale</span>
+</div>
+<span class="font-bold text-lg tracking-tight">SmartPOS</span>
+</div>
+<nav class="flex-1 px-4 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-primary/10 rounded-lg transition-colors" href="#">
+<span class="material-icons text-xl">dashboard</span> Dashboard
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-primary/10 rounded-lg transition-colors" href="#">
+<span class="material-icons text-xl">inventory_2</span> Inventory
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 bg-primary/10 text-primary rounded-lg font-medium" href="#">
+<span class="material-icons text-xl">group</span> User Management
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-primary/10 rounded-lg transition-colors" href="#">
+<span class="material-icons text-xl">analytics</span> Reports
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-primary/10 rounded-lg transition-colors" href="#">
+<span class="material-icons text-xl">settings</span> Settings
+            </a>
+</nav>
+<div class="p-4 border-t border-slate-200 dark:border-border-dark">
+<div class="flex items-center gap-3 p-2 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
+<img alt="Admin Avatar" class="w-10 h-10 rounded-full" data-alt="Profile photo of the logged-in administrator" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCX5FgZl5f-1s-Pcm7huoxjx1g4cn3HFK8DstdNxa5wekWDbkCoB9scJlV0QQbhQbr4jX3LEgt4O5LaVhaZYQqC-2mGiXwgcCT7Gb2bCWA1oV2r8XsgrzgKCtudvB5NjU1BLefAwDYUV8UhB2fl2arc17gtRfLYk5tUuHLYUpys5dZUjbxskbbepX4ITWy-ZV8GsfERaWjBpvbMCynFDP5u1lL449jTrNrQ7iy0OnDMkLyw85pwfXON-iGQKhzW-iT5ws5Pc8jcORem"/>
+<div>
+<p class="text-sm font-semibold">Alex Rivera</p>
+<p class="text-xs text-slate-500">Super Admin</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="lg:ml-64 p-8">
+<!-- Header -->
+<header class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+<div>
+<nav class="text-xs text-slate-500 mb-1 flex items-center gap-2">
+<span>Settings</span>
+<span class="material-icons text-[10px]">chevron_right</span>
+<span class="text-primary">User Management</span>
+</nav>
+<h1 class="text-2xl font-bold">User Management</h1>
+<p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Control staff access levels and security settings.</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-2 px-4 py-2 bg-primary text-white font-medium rounded-lg hover:bg-primary/90 transition-all shadow-lg shadow-primary/20">
+<span class="material-icons text-lg">person_add</span>
+                    Invite New User
+                </button>
+</div>
+</header>
+<!-- Stats Overview -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+<div class="bg-white dark:bg-surface-dark p-6 rounded-xl border border-slate-200 dark:border-border-dark shadow-sm">
+<div class="flex items-center justify-between mb-2">
+<span class="text-slate-500 text-sm font-medium">Total Staff</span>
+<span class="material-icons text-primary/60">people</span>
+</div>
+<div class="text-2xl font-bold">24</div>
+<div class="text-xs text-emerald-500 flex items-center gap-1 mt-1">
+<span class="material-icons text-[14px]">trending_up</span> +2 this month
+                </div>
+</div>
+<div class="bg-white dark:bg-surface-dark p-6 rounded-xl border border-slate-200 dark:border-border-dark shadow-sm">
+<div class="flex items-center justify-between mb-2">
+<span class="text-slate-500 text-sm font-medium">Active Now</span>
+<span class="material-icons text-emerald-500">circle</span>
+</div>
+<div class="text-2xl font-bold">12</div>
+<div class="text-xs text-slate-500 mt-1">Real-time sessions</div>
+</div>
+<div class="bg-white dark:bg-surface-dark p-6 rounded-xl border border-slate-200 dark:border-border-dark shadow-sm">
+<div class="flex items-center justify-between mb-2">
+<span class="text-slate-500 text-sm font-medium">Pending Invites</span>
+<span class="material-icons text-orange-500">mail</span>
+</div>
+<div class="text-2xl font-bold">3</div>
+<div class="text-xs text-slate-500 mt-1">Awaiting confirmation</div>
+</div>
+<div class="bg-white dark:bg-surface-dark p-6 rounded-xl border border-slate-200 dark:border-border-dark shadow-sm">
+<div class="flex items-center justify-between mb-2">
+<span class="text-slate-500 text-sm font-medium">System Role</span>
+<span class="material-icons text-slate-400">shield</span>
+</div>
+<div class="text-2xl font-bold">4</div>
+<div class="text-xs text-slate-500 mt-1">Unique permission sets</div>
+</div>
+</div>
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-8">
+<!-- Main User List Section -->
+<div class="xl:col-span-8">
+<div class="bg-white dark:bg-surface-dark rounded-xl border border-slate-200 dark:border-border-dark overflow-hidden">
+<!-- Table Actions -->
+<div class="p-4 border-b border-slate-200 dark:border-border-dark flex flex-col sm:flex-row justify-between items-center gap-4">
+<div class="relative w-full sm:w-72">
+<span class="material-icons absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl">search</span>
+<input class="w-full bg-slate-50 dark:bg-background-dark border border-slate-200 dark:border-border-dark rounded-lg pl-10 pr-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary" placeholder="Search users or emails..." type="text"/>
+</div>
+<div class="flex gap-2 w-full sm:w-auto">
+<button class="flex-1 sm:flex-none px-3 py-2 bg-slate-50 dark:bg-background-dark border border-slate-200 dark:border-border-dark rounded-lg text-sm font-medium flex items-center justify-center gap-2">
+<span class="material-icons text-sm">filter_list</span> Filter
+                            </button>
+<button class="flex-1 sm:flex-none px-3 py-2 bg-slate-50 dark:bg-background-dark border border-slate-200 dark:border-border-dark rounded-lg text-sm font-medium flex items-center justify-center gap-2">
+<span class="material-icons text-sm">download</span> Export
+                            </button>
+</div>
+</div>
+<!-- User Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-slate-50 dark:bg-slate-800/50 text-slate-500 text-xs font-semibold uppercase tracking-wider">
+<tr>
+<th class="px-6 py-4">User Details</th>
+<th class="px-6 py-4">Role</th>
+<th class="px-6 py-4">Status</th>
+<th class="px-6 py-4">Last Login</th>
+<th class="px-6 py-4 text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-200 dark:divide-border-dark">
+<!-- User Row 1 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-primary/5 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<img alt="Sarah J." class="w-8 h-8 rounded-full" data-alt="Professional portrait of a female employee" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDVpV3XWWI99h9KTkI8f_-6HRYJ5F2cmk7o5V9hVEtpabVQiz7oVPq-7LJTA0cFpdKosyJLTWGVTbY0veprkTYTtByvrPPTYWh3sUn03bpUiKm7OYOpDNLtedo_YHZ2_AV9c9pRlMWMriBfijN-O8_jbix7a4tv4Xv3sF41d20pEvVOGlyAONQ2CaQKxdl4Dus2rC05m8nKsVKigSwWQgnbPTQUQxdy-ISfrfGaIFUG4sQ1IrOvHNC0KClEzMN2c8Hopz8-jhPsbNpv"/>
+<div>
+<p class="text-sm font-semibold">Sarah Jenkins</p>
+<p class="text-xs text-slate-500">sarah.j@smartpos.com</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-sm">
+<span class="px-2.5 py-1 bg-primary/10 text-primary rounded-full text-xs font-semibold">Store Admin</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 bg-emerald-500 rounded-full"></span>
+<span class="text-xs font-medium">Active</span>
+</div>
+</td>
+<td class="px-6 py-4 text-xs text-slate-500">2 mins ago</td>
+<td class="px-6 py-4 text-right">
+<button class="p-2 text-slate-400 hover:text-primary transition-colors">
+<span class="material-icons text-lg">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- User Row 2 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-primary/5 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<img alt="Marcus T." class="w-8 h-8 rounded-full" data-alt="Portrait of a male retail cashier" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBK-guphlQ8VelYFiGdyMK2TLEHqkQAFz04_-pEUNpvLZmsS6R-WqbJZMahH9q36kBisF-_Y2AOIlLCSP2CAz86ky2jYuDFyV54jQLn9TRfPq4UGtGikZAc8lTJDPgKpMBdZ9EBG9Tbzc-w6V37N9l_k6se0bp_hurWTWG8VW4V2_hzqpgALJWHyaNnOK2w7NWI-OfSAEtDtcIeIVe79TsQXGKPU2NHlTd7rlADqtwCOb2fascuR_HpywORRrObda8IXPVMbRokcALr"/>
+<div>
+<p class="text-sm font-semibold">Marcus Thorne</p>
+<p class="text-xs text-slate-500">marcus.t@smartpos.com</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-sm">
+<span class="px-2.5 py-1 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full text-xs font-semibold">Cashier</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 bg-emerald-500 rounded-full"></span>
+<span class="text-xs font-medium">Active</span>
+</div>
+</td>
+<td class="px-6 py-4 text-xs text-slate-500">4 hours ago</td>
+<td class="px-6 py-4 text-right">
+<button class="p-2 text-slate-400 hover:text-primary transition-colors">
+<span class="material-icons text-lg">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- User Row 3 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-primary/5 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<img alt="Elena D." class="w-8 h-8 rounded-full" data-alt="Close up portrait of a female staff member" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGM50mWSGdPetkFL_1TrJXt1GYi57VwWnf6wGFHjeiJ8adoVzSvEJ3hGd7cioYAHIyIYEo3VyfgqiThVDLdvlxDrs4vARC07AWYKqKtlkh9QDQtq00bMWBgpdjzhcG9J2PePaVAoLtErZGzIz0QKzqQHnJxJdsH_8vX4rdM0rzWL9-YBxZSFco7ERhf6CNscPe7fh6uHWuVCzclofePCe-x0iuL6LojOAfhzw7d9XZT7EuFKuwXUvmizNPraYvhhPwMdcgkmBASmHQ"/>
+<div>
+<p class="text-sm font-semibold font-semibold">Elena D’Amico</p>
+<p class="text-xs text-slate-500">elena.d@smartpos.com</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-sm">
+<span class="px-2.5 py-1 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full text-xs font-semibold">Cashier</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 bg-slate-400 rounded-full"></span>
+<span class="text-xs font-medium text-slate-500">Inactive</span>
+</div>
+</td>
+<td class="px-6 py-4 text-xs text-slate-500">12 days ago</td>
+<td class="px-6 py-4 text-right">
+<button class="p-2 text-slate-400 hover:text-primary transition-colors">
+<span class="material-icons text-lg">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- User Row 4 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-primary/5 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<img alt="Robert K." class="w-8 h-8 rounded-full" data-alt="Portrait of a male senior manager" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVbjK509Oc3le5sV0BqC7HsiQzEvHKEH9qjjqOHeudxaWiRjaA5LiV54Y4b48oAdFsE9D4Qz2uU8aIgUsFbOhnCkgaD7yktSRJWPmy8bA9iZOCNWqofqJUmxU_xmJiURkyVIAjWsjxxw4epBeXbl379cJRRvEZPaOfwM5RdvDgT-QBxFxYJIA6IMKzNF4cb8oBGUBElEMIS0Z0PAwjXgateBaR38PsYppk9xNLYKUw2N05zW4KpbkRpx_wP9XTMd1Flz6I4xJq4gK2"/>
+<div>
+<p class="text-sm font-semibold">Robert King</p>
+<p class="text-xs text-slate-500">r.king@smartpos.com</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-sm">
+<span class="px-2.5 py-1 bg-primary/10 text-primary rounded-full text-xs font-semibold">Manager</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 bg-emerald-500 rounded-full"></span>
+<span class="text-xs font-medium">Active</span>
+</div>
+</td>
+<td class="px-6 py-4 text-xs text-slate-500">Yesterday</td>
+<td class="px-6 py-4 text-right">
+<button class="p-2 text-slate-400 hover:text-primary transition-colors">
+<span class="material-icons text-lg">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="p-4 border-t border-slate-200 dark:border-border-dark flex items-center justify-between">
+<p class="text-xs text-slate-500">Showing 1 to 4 of 24 results</p>
+<div class="flex gap-2">
+<button class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded border border-slate-200 dark:border-border-dark disabled:opacity-30" disabled="">
+<span class="material-icons text-sm">chevron_left</span>
+</button>
+<button class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded border border-slate-200 dark:border-border-dark">
+<span class="material-icons text-sm">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Side Form / Invite Panel -->
+<div class="xl:col-span-4 space-y-6">
+<!-- Invite Form Card -->
+<div class="bg-white dark:bg-surface-dark rounded-xl border border-slate-200 dark:border-border-dark p-6 shadow-sm">
+<h3 class="text-lg font-bold mb-1">Invite New User</h3>
+<p class="text-xs text-slate-500 mb-6">Send an invitation to join your workspace.</p>
+<form class="space-y-4">
+<div>
+<label class="block text-xs font-semibold text-slate-500 uppercase mb-1.5 tracking-wide">Full Name</label>
+<input class="w-full bg-slate-50 dark:bg-background-dark border border-slate-200 dark:border-border-dark rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-primary/40 focus:border-primary outline-none" placeholder="e.g. John Doe" type="text"/>
+</div>
+<div>
+<label class="block text-xs font-semibold text-slate-500 uppercase mb-1.5 tracking-wide">Email Address</label>
+<input class="w-full bg-slate-50 dark:bg-background-dark border border-slate-200 dark:border-border-dark rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-primary/40 focus:border-primary outline-none" placeholder="john@example.com" type="email"/>
+</div>
+<div>
+<label class="block text-xs font-semibold text-slate-500 uppercase mb-1.5 tracking-wide">Assign Role</label>
+<select class="w-full bg-slate-50 dark:bg-background-dark border border-slate-200 dark:border-border-dark rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-primary/40 focus:border-primary outline-none appearance-none cursor-pointer">
+<option>Select a role...</option>
+<option>Super Admin</option>
+<option>Store Admin</option>
+<option>Manager</option>
+<option>Cashier</option>
+</select>
+</div>
+<!-- Role Description Helper -->
+<div class="p-3 bg-primary/5 border border-primary/20 rounded-lg">
+<div class="flex gap-2">
+<span class="material-icons text-primary text-base">info</span>
+<p class="text-[11px] leading-relaxed text-slate-600 dark:text-slate-400">
+<strong class="text-primary">Note:</strong> Admin users have full access to system settings, financial reports, and inventory management.
+                                </p>
+</div>
+</div>
+<button class="w-full py-2.5 bg-primary text-white font-semibold rounded-lg hover:bg-primary/90 transition-all text-sm mt-4 shadow-lg shadow-primary/20" type="button">
+                            Send Invitation
+                        </button>
+</form>
+</div>
+<!-- Security / Quick Actions -->
+<div class="bg-white dark:bg-surface-dark rounded-xl border border-slate-200 dark:border-border-dark p-6 shadow-sm">
+<h3 class="text-sm font-bold mb-4 flex items-center gap-2">
+<span class="material-icons text-primary text-lg">security</span>
+                        Security Shortcuts
+                    </h3>
+<div class="space-y-3">
+<button class="w-full flex items-center justify-between p-3 rounded-lg border border-slate-200 dark:border-border-dark hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors group">
+<span class="text-xs font-medium">Reset Password Link</span>
+<span class="material-icons text-sm text-slate-400 group-hover:text-primary">arrow_forward</span>
+</button>
+<button class="w-full flex items-center justify-between p-3 rounded-lg border border-slate-200 dark:border-border-dark hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors group">
+<span class="text-xs font-medium">Bulk Deactivate Users</span>
+<span class="material-icons text-sm text-slate-400 group-hover:text-red-500">block</span>
+</button>
+<button class="w-full flex items-center justify-between p-3 rounded-lg border border-slate-200 dark:border-border-dark hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors group">
+<span class="text-xs font-medium">Download Audit Logs</span>
+<span class="material-icons text-sm text-slate-400 group-hover:text-primary">history_edu</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Audit Footer -->
+<footer class="mt-12 py-6 border-t border-slate-200 dark:border-border-dark flex flex-col md:flex-row items-center justify-between gap-4">
+<div class="flex items-center gap-2 text-xs text-slate-500">
+<span class="material-icons text-sm">verified_user</span>
+                All administrative actions are encrypted and logged for security auditing.
+            </div>
+<div class="flex items-center gap-4">
+<a class="text-xs text-slate-400 hover:text-primary" href="#">Privacy Policy</a>
+<a class="text-xs text-slate-400 hover:text-primary" href="#">Security Protocol</a>
+<span class="text-xs text-slate-600 font-medium">v2.4.0-stable</span>
+</div>
+</footer>
+</main>
+<!-- Modal Overlay (Mockup for Confirmation) -->
+<div class="fixed inset-0 bg-background-dark/80 backdrop-blur-sm z-50 flex items-center justify-center hidden">
+<div class="bg-white dark:bg-surface-dark w-full max-w-md rounded-xl shadow-2xl border border-slate-200 dark:border-border-dark p-6">
+<div class="w-12 h-12 bg-red-100 dark:bg-red-500/10 rounded-full flex items-center justify-center mb-4">
+<span class="material-icons text-red-500">warning</span>
+</div>
+<h3 class="text-lg font-bold mb-2">Deactivate Account?</h3>
+<p class="text-sm text-slate-500 dark:text-slate-400 mb-6">
+                Are you sure you want to deactivate <span class="font-semibold text-slate-900 dark:text-white">Marcus Thorne</span>? They will lose access to all POS terminals immediately.
+            </p>
+<div class="flex gap-3">
+<button class="flex-1 py-2 text-sm font-semibold border border-slate-200 dark:border-border-dark rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">Cancel</button>
+<button class="flex-1 py-2 text-sm font-semibold bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors">Yes, Deactivate</button>
+</div>
+</div>
+</div>
+</body></html>

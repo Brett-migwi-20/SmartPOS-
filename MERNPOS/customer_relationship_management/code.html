@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CRM - SmartPOS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2b8cee",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                        "neutral-dark": "#1a2632",
+                        "border-dark": "#2d3a4b"
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex">
+<!-- Sidebar Navigation -->
+<aside class="w-64 border-r border-slate-200 dark:border-border-dark hidden lg:flex flex-col bg-white dark:bg-background-dark">
+<div class="p-6 border-b border-slate-200 dark:border-border-dark">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+<span class="material-icons text-white text-sm">point_of_sale</span>
+</div>
+<span class="font-bold text-xl tracking-tight">Smart<span class="text-primary">POS</span></span>
+</div>
+</div>
+<nav class="flex-1 p-4 space-y-2">
+<a class="flex items-center gap-3 px-4 py-2.5 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-primary/10 hover:text-primary rounded-lg transition-colors" href="#">
+<span class="material-icons">dashboard</span>
+<span class="font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2.5 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-primary/10 hover:text-primary rounded-lg transition-colors" href="#">
+<span class="material-icons">inventory_2</span>
+<span class="font-medium">Inventory</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2.5 bg-primary/10 text-primary rounded-lg transition-colors" href="#">
+<span class="material-icons">groups</span>
+<span class="font-medium">CRM</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2.5 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-primary/10 hover:text-primary rounded-lg transition-colors" href="#">
+<span class="material-icons">receipt_long</span>
+<span class="font-medium">Transactions</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2.5 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-primary/10 hover:text-primary rounded-lg transition-colors" href="#">
+<span class="material-icons">bar_chart</span>
+<span class="font-medium">Reports</span>
+</a>
+</nav>
+<div class="p-4 border-t border-slate-200 dark:border-border-dark">
+<div class="flex items-center gap-3 px-4 py-2">
+<img alt="Admin" class="w-8 h-8 rounded-full" data-alt="User profile avatar of the store manager" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8gMcK8KtnUpxEOUyCLaqV_a-cEnjVqQqQIsb7a42AfPZJjrwy87hfxmBpG4_tLrd5ePb_qnBgAobyA8QxWUbVYTyDPcr0w-iaKLu2g0kWNC2xumomPk70TCmCSsq2zriLPCsM__df5q8mf2uBFm0fL_45GTwaL-ia1jA8wo0ichoutjmA2CUJ7jOHiLwt-tVPKKfC5mOGa9__LtEUR5lktwp_ajata20xKQ0v8XICccqEE7ZHkEF7Pk5yD6RUY-fW3Rov5DoGYXxb"/>
+<div>
+<p class="text-sm font-semibold">Alex Miller</p>
+<p class="text-xs text-slate-500">Store Manager</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col overflow-hidden">
+<!-- Top Header -->
+<header class="h-16 border-b border-slate-200 dark:border-border-dark flex items-center justify-between px-8 bg-white dark:bg-background-dark">
+<h1 class="text-xl font-bold">Customer Relationship Management</h1>
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-400 hover:text-primary transition-colors">
+<span class="material-icons text-xl">notifications</span>
+</button>
+<div class="h-6 w-[1px] bg-slate-200 dark:bg-border-dark"></div>
+<button class="bg-primary text-white px-4 py-2 rounded-lg font-medium flex items-center gap-2 hover:bg-primary/90 transition-colors">
+<span class="material-icons text-sm">add</span>
+<span>New Customer</span>
+</button>
+</div>
+</header>
+<!-- Stats Overview -->
+<div class="p-8 pb-0">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+<div class="bg-white dark:bg-neutral-dark p-6 rounded-xl border border-slate-200 dark:border-border-dark shadow-sm">
+<p class="text-sm text-slate-500 dark:text-slate-400 mb-1">Total Customers</p>
+<div class="flex items-baseline gap-2">
+<span class="text-2xl font-bold">1,482</span>
+<span class="text-xs text-emerald-500 flex items-center"><span class="material-icons text-xs">arrow_upward</span> 12%</span>
+</div>
+</div>
+<div class="bg-white dark:bg-neutral-dark p-6 rounded-xl border border-slate-200 dark:border-border-dark shadow-sm">
+<p class="text-sm text-slate-500 dark:text-slate-400 mb-1">Active This Month</p>
+<div class="flex items-baseline gap-2">
+<span class="text-2xl font-bold">534</span>
+<span class="text-xs text-emerald-500 flex items-center"><span class="material-icons text-xs">arrow_upward</span> 5%</span>
+</div>
+</div>
+<div class="bg-white dark:bg-neutral-dark p-6 rounded-xl border border-slate-200 dark:border-border-dark shadow-sm">
+<p class="text-sm text-slate-500 dark:text-slate-400 mb-1">Average Spend</p>
+<div class="flex items-baseline gap-2">
+<span class="text-2xl font-bold">$142.50</span>
+<span class="text-xs text-slate-400">per visit</span>
+</div>
+</div>
+<div class="bg-white dark:bg-neutral-dark p-6 rounded-xl border border-slate-200 dark:border-border-dark shadow-sm">
+<p class="text-sm text-slate-500 dark:text-slate-400 mb-1">Customer Retention</p>
+<div class="flex items-baseline gap-2">
+<span class="text-2xl font-bold">78.2%</span>
+<span class="text-xs text-rose-500 flex items-center"><span class="material-icons text-xs">arrow_downward</span> 2%</span>
+</div>
+</div>
+</div>
+</div>
+<!-- CRM Table & Filters -->
+<div class="p-8 flex-1 flex flex-col min-h-0">
+<div class="bg-white dark:bg-neutral-dark flex-1 rounded-xl border border-slate-200 dark:border-border-dark shadow-sm flex flex-col overflow-hidden">
+<!-- Toolbar -->
+<div class="p-4 border-b border-slate-200 dark:border-border-dark flex items-center justify-between">
+<div class="relative w-96">
+<span class="material-icons absolute left-3 top-2.5 text-slate-400">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-slate-50 dark:bg-background-dark border-slate-200 dark:border-border-dark rounded-lg focus:ring-primary focus:border-primary text-sm transition-all" placeholder="Search by name, phone or email..." type="text"/>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-4 py-2 border border-slate-200 dark:border-border-dark rounded-lg text-sm flex items-center gap-2 hover:bg-slate-50 dark:hover:bg-background-dark">
+<span class="material-icons text-sm">filter_list</span>
+                            Filter
+                        </button>
+<button class="px-4 py-2 border border-slate-200 dark:border-border-dark rounded-lg text-sm flex items-center gap-2 hover:bg-slate-50 dark:hover:bg-background-dark">
+<span class="material-icons text-sm">file_download</span>
+                            Export
+                        </button>
+</div>
+</div>
+<!-- Table Container -->
+<div class="flex-1 overflow-auto scrollbar-hide">
+<table class="w-full text-left border-collapse">
+<thead class="sticky top-0 bg-slate-50 dark:bg-background-dark z-10 border-b border-slate-200 dark:border-border-dark">
+<tr>
+<th class="px-6 py-4 text-xs font-semibold uppercase text-slate-500 tracking-wider">Customer</th>
+<th class="px-6 py-4 text-xs font-semibold uppercase text-slate-500 tracking-wider">Contact Info</th>
+<th class="px-6 py-4 text-xs font-semibold uppercase text-slate-500 tracking-wider">Last Visit</th>
+<th class="px-6 py-4 text-xs font-semibold uppercase text-slate-500 tracking-wider">Total Spend</th>
+<th class="px-6 py-4 text-xs font-semibold uppercase text-slate-500 tracking-wider text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 dark:divide-border-dark">
+<!-- Row 1 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold">JD</div>
+<div>
+<p class="font-semibold">Jane Doe</p>
+<p class="text-xs text-slate-500">Member since May 2023</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<p class="text-sm font-medium">jane.doe@example.com</p>
+<p class="text-xs text-slate-500">+1 (555) 012-3456</p>
+</td>
+<td class="px-6 py-4">
+<p class="text-sm">Oct 24, 2023</p>
+<p class="text-xs text-slate-500">2 days ago</p>
+</td>
+<td class="px-6 py-4 font-semibold text-primary">$1,250.00</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors"><span class="material-icons">more_vert</span></button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold">RH</div>
+<div>
+<p class="font-semibold">Robert Howell</p>
+<p class="text-xs text-slate-500">Member since Jan 2022</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<p class="text-sm font-medium">robert.h@outlook.com</p>
+<p class="text-xs text-slate-500">+1 (555) 987-6543</p>
+</td>
+<td class="px-6 py-4">
+<p class="text-sm">Oct 21, 2023</p>
+<p class="text-xs text-slate-500">5 days ago</p>
+</td>
+<td class="px-6 py-4 font-semibold text-primary">$4,820.50</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors"><span class="material-icons">more_vert</span></button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center font-bold">SM</div>
+<div>
+<p class="font-semibold">Sarah Meyer</p>
+<p class="text-xs text-slate-500">Member since Aug 2023</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<p class="text-sm font-medium">sarah.m@gmail.com</p>
+<p class="text-xs text-slate-500">+1 (555) 234-5678</p>
+</td>
+<td class="px-6 py-4">
+<p class="text-sm">Oct 15, 2023</p>
+<p class="text-xs text-slate-500">11 days ago</p>
+</td>
+<td class="px-6 py-4 font-semibold text-primary">$325.00</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors"><span class="material-icons">more_vert</span></button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center font-bold">MK</div>
+<div>
+<p class="font-semibold">Michael Kim</p>
+<p class="text-xs text-slate-500">Member since Dec 2021</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<p class="text-sm font-medium">m.kim@techcorp.com</p>
+<p class="text-xs text-slate-500">+1 (555) 777-8899</p>
+</td>
+<td class="px-6 py-4">
+<p class="text-sm">Oct 26, 2023</p>
+<p class="text-xs text-slate-500">Today</p>
+</td>
+<td class="px-6 py-4 font-semibold text-primary">$12,400.00</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors"><span class="material-icons">more_vert</span></button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Footer / Pagination -->
+<div class="p-4 border-t border-slate-200 dark:border-border-dark flex items-center justify-between bg-slate-50 dark:bg-background-dark/50">
+<p class="text-xs text-slate-500">Showing 1 to 4 of 1,482 customers</p>
+<div class="flex items-center gap-1">
+<button class="p-1 rounded hover:bg-slate-200 dark:hover:bg-border-dark disabled:opacity-50"><span class="material-icons text-sm">chevron_left</span></button>
+<button class="px-3 py-1 bg-primary text-white text-xs font-bold rounded">1</button>
+<button class="px-3 py-1 text-xs font-medium rounded hover:bg-slate-200 dark:hover:bg-border-dark">2</button>
+<button class="px-3 py-1 text-xs font-medium rounded hover:bg-slate-200 dark:hover:bg-border-dark">3</button>
+<span class="px-2 text-xs">...</span>
+<button class="px-3 py-1 text-xs font-medium rounded hover:bg-slate-200 dark:hover:bg-border-dark">148</button>
+<button class="p-1 rounded hover:bg-slate-200 dark:hover:bg-border-dark"><span class="material-icons text-sm">chevron_right</span></button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Slide-over Modal: Add New Customer (Overlay visible) -->
+<div class="fixed inset-0 z-50 flex justify-end pointer-events-none">
+<!-- Backdrop -->
+<div class="absolute inset-0 bg-slate-900/40 dark:bg-black/60 backdrop-blur-sm pointer-events-auto"></div>
+<!-- Panel -->
+<div class="relative w-full max-w-md bg-white dark:bg-neutral-dark h-full shadow-2xl flex flex-col pointer-events-auto">
+<div class="p-6 border-b border-slate-200 dark:border-border-dark flex items-center justify-between">
+<h2 class="text-lg font-bold">Add New Customer</h2>
+<button class="p-2 hover:bg-slate-100 dark:hover:bg-border-dark rounded-full transition-colors">
+<span class="material-icons">close</span>
+</button>
+</div>
+<form class="flex-1 overflow-y-auto p-6 space-y-6">
+<div class="space-y-2 text-center pb-4">
+<div class="w-24 h-24 bg-slate-100 dark:bg-background-dark rounded-full mx-auto flex flex-col items-center justify-center border-2 border-dashed border-slate-300 dark:border-border-dark group cursor-pointer hover:border-primary transition-colors">
+<span class="material-icons text-slate-400 group-hover:text-primary">photo_camera</span>
+<span class="text-[10px] text-slate-500">Upload Photo</span>
+</div>
+</div>
+<div class="space-y-4">
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-1.5">
+<label class="text-xs font-bold text-slate-500 uppercase tracking-wider">First Name</label>
+<input class="w-full bg-slate-50 dark:bg-background-dark border-slate-200 dark:border-border-dark rounded-lg focus:ring-primary focus:border-primary text-sm" placeholder="John" type="text"/>
+</div>
+<div class="space-y-1.5">
+<label class="text-xs font-bold text-slate-500 uppercase tracking-wider">Last Name</label>
+<input class="w-full bg-slate-50 dark:bg-background-dark border-slate-200 dark:border-border-dark rounded-lg focus:ring-primary focus:border-primary text-sm" placeholder="Doe" type="text"/>
+</div>
+</div>
+<div class="space-y-1.5">
+<label class="text-xs font-bold text-slate-500 uppercase tracking-wider">Email Address</label>
+<input class="w-full bg-slate-50 dark:bg-background-dark border-slate-200 dark:border-border-dark rounded-lg focus:ring-primary focus:border-primary text-sm" placeholder="john.doe@example.com" type="email"/>
+</div>
+<div class="space-y-1.5">
+<label class="text-xs font-bold text-slate-500 uppercase tracking-wider">Phone Number</label>
+<div class="relative">
+<span class="absolute left-3 top-2.5 text-slate-400 text-sm font-medium">+1</span>
+<input class="w-full pl-10 pr-4 py-2 bg-slate-50 dark:bg-background-dark border-slate-200 dark:border-border-dark rounded-lg focus:ring-primary focus:border-primary text-sm" placeholder="(555) 000-0000" type="tel"/>
+</div>
+</div>
+<div class="space-y-1.5">
+<label class="text-xs font-bold text-slate-500 uppercase tracking-wider">Tags</label>
+<div class="flex flex-wrap gap-2 p-2 bg-slate-50 dark:bg-background-dark border border-slate-200 dark:border-border-dark rounded-lg min-h-[42px]">
+<span class="bg-primary/20 text-primary text-[10px] font-bold px-2 py-1 rounded flex items-center gap-1">VIP <span class="material-icons text-[10px] cursor-pointer">close</span></span>
+<span class="bg-slate-200 dark:bg-border-dark text-slate-600 dark:text-slate-400 text-[10px] font-bold px-2 py-1 rounded flex items-center gap-1">Wholesale <span class="material-icons text-[10px] cursor-pointer">close</span></span>
+<input class="flex-1 bg-transparent border-none p-0 focus:ring-0 text-xs" placeholder="Add..." type="text"/>
+</div>
+</div>
+<div class="space-y-1.5 pt-2">
+<label class="text-xs font-bold text-slate-500 uppercase tracking-wider">Internal Notes</label>
+<textarea class="w-full bg-slate-50 dark:bg-background-dark border-slate-200 dark:border-border-dark rounded-lg focus:ring-primary focus:border-primary text-sm" placeholder="Add any specific preferences or historical context..." rows="3"></textarea>
+</div>
+</div>
+<div class="bg-primary/5 rounded-lg p-4 border border-primary/10">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-icons text-primary text-sm">loyalty</span>
+<span class="text-xs font-bold text-primary">Loyalty Enrollment</span>
+</div>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input checked="" class="w-4 h-4 text-primary bg-white dark:bg-background-dark border-slate-300 dark:border-border-dark rounded focus:ring-primary focus:ring-offset-0" type="checkbox"/>
+<span class="text-xs text-slate-600 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">Automatically enroll in SmartRewards Program</span>
+</label>
+</div>
+</form>
+<div class="p-6 border-t border-slate-200 dark:border-border-dark flex items-center gap-3">
+<button class="flex-1 px-4 py-2.5 border border-slate-200 dark:border-border-dark rounded-lg font-medium text-sm hover:bg-slate-50 dark:hover:bg-background-dark transition-colors">Cancel</button>
+<button class="flex-1 px-4 py-2.5 bg-primary text-white rounded-lg font-medium text-sm shadow-lg shadow-primary/20 hover:bg-primary/90 transition-all">Save Customer</button>
+</div>
+</div>
+</div>
+</body></html>

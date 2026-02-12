@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Category Management | SmartPOS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2b8cee",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                        "surface-dark": "#1a242f",
+                        "border-dark": "#2d3a4b",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen font-display">
+<!-- Sidebar Navigation -->
+<aside class="fixed left-0 top-0 h-full w-64 bg-white dark:bg-surface-dark border-r border-slate-200 dark:border-border-dark z-50 hidden lg:block">
+<div class="p-6 flex items-center gap-3">
+<div class="w-8 h-8 bg-primary rounded flex items-center justify-center">
+<span class="material-icons-round text-white">storefront</span>
+</div>
+<h1 class="font-bold text-xl tracking-tight">Smart<span class="text-primary">POS</span></h1>
+</div>
+<nav class="mt-4 px-4 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-icons-round text-[20px]">dashboard</span>
+<span class="font-medium text-sm">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-icons-round text-[20px]">inventory_2</span>
+<span class="font-medium text-sm">Products</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary/10 text-primary transition-colors" href="#">
+<span class="material-icons-round text-[20px]">category</span>
+<span class="font-medium text-sm">Categories</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-icons-round text-[20px]">receipt_long</span>
+<span class="font-medium text-sm">Sales</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-icons-round text-[20px]">people</span>
+<span class="font-medium text-sm">Customers</span>
+</a>
+<div class="pt-4 mt-4 border-t border-slate-200 dark:border-border-dark">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-icons-round text-[20px]">settings</span>
+<span class="font-medium text-sm">Settings</span>
+</a>
+</div>
+</nav>
+</aside>
+<!-- Main Content -->
+<main class="lg:ml-64 p-6 lg:p-10">
+<!-- Header -->
+<header class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+<div>
+<nav class="flex items-center gap-2 text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">
+<a class="hover:text-primary transition-colors" href="#">Dashboard</a>
+<span class="material-icons-round text-[14px]">chevron_right</span>
+<span class="text-slate-900 dark:text-white">Categories</span>
+</nav>
+<h2 class="text-2xl font-bold dark:text-white">Category Management</h2>
+</div>
+<div class="flex items-center gap-3">
+<div class="relative">
+<span class="material-icons-round absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[20px]">search</span>
+<input class="w-full md:w-64 pl-10 pr-4 py-2 bg-white dark:bg-surface-dark border border-slate-200 dark:border-border-dark rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 dark:text-white transition-all" placeholder="Search categories..." type="text"/>
+</div>
+<button class="flex items-center gap-2 bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg font-medium transition-colors shadow-lg shadow-primary/20">
+<span class="material-icons-round text-[20px]">add</span>
+<span>New Category</span>
+</button>
+</div>
+</header>
+<!-- Stats Overview (Quick Insights) -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+<div class="bg-white dark:bg-surface-dark p-6 rounded-xl border border-slate-200 dark:border-border-dark">
+<div class="flex items-center justify-between mb-2">
+<span class="text-slate-500 dark:text-slate-400 text-sm font-medium">Total Categories</span>
+<div class="p-2 bg-primary/10 rounded-lg">
+<span class="material-icons-round text-primary text-[20px]">inventory</span>
+</div>
+</div>
+<p class="text-2xl font-bold dark:text-white">24</p>
+<p class="text-xs text-green-500 mt-2 flex items-center gap-1">
+<span class="material-icons-round text-[14px]">trending_up</span>
+                    +2 this month
+                </p>
+</div>
+<div class="bg-white dark:bg-surface-dark p-6 rounded-xl border border-slate-200 dark:border-border-dark">
+<div class="flex items-center justify-between mb-2">
+<span class="text-slate-500 dark:text-slate-400 text-sm font-medium">Most Popular</span>
+<div class="p-2 bg-amber-500/10 rounded-lg">
+<span class="material-icons-round text-amber-500 text-[20px]">star</span>
+</div>
+</div>
+<p class="text-2xl font-bold dark:text-white">Electronics</p>
+<p class="text-xs text-slate-500 mt-2">142 Products linked</p>
+</div>
+<div class="bg-white dark:bg-surface-dark p-6 rounded-xl border border-slate-200 dark:border-border-dark">
+<div class="flex items-center justify-between mb-2">
+<span class="text-slate-500 dark:text-slate-400 text-sm font-medium">Empty Categories</span>
+<div class="p-2 bg-rose-500/10 rounded-lg">
+<span class="material-icons-round text-rose-500 text-[20px]">warning</span>
+</div>
+</div>
+<p class="text-2xl font-bold dark:text-white">3</p>
+<p class="text-xs text-slate-500 mt-2">Require attention</p>
+</div>
+</section>
+<!-- Category Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+<!-- Category Card 1 -->
+<div class="group bg-white dark:bg-surface-dark p-5 rounded-xl border border-slate-200 dark:border-border-dark hover:border-primary/50 transition-all shadow-sm hover:shadow-md relative overflow-hidden">
+<div class="flex items-start justify-between relative z-10">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center text-blue-600 dark:text-blue-400">
+<span class="material-icons-round text-[28px]">devices</span>
+</div>
+<div>
+<h3 class="font-bold text-lg dark:text-white">Electronics</h3>
+<p class="text-xs text-slate-500 dark:text-slate-400">Gadgets, laptops, and mobile phones</p>
+</div>
+</div>
+<div class="flex items-center gap-1">
+<button class="p-2 text-slate-400 hover:text-primary transition-colors">
+<span class="material-icons-round text-[20px]">edit</span>
+</button>
+<button class="p-2 text-slate-400 hover:text-rose-500 transition-colors">
+<span class="material-icons-round text-[20px]">delete_outline</span>
+</button>
+</div>
+</div>
+<div class="mt-6 flex items-center justify-between relative z-10">
+<span class="px-3 py-1 bg-primary/10 text-primary text-xs font-semibold rounded-full">142 Products</span>
+<span class="text-xs text-slate-400">Updated 2 days ago</span>
+</div>
+<div class="absolute right-0 bottom-0 opacity-5 -mb-6 -mr-4 group-hover:scale-110 transition-transform">
+<span class="material-icons-round text-[120px]">devices</span>
+</div>
+</div>
+<!-- Category Card 2 -->
+<div class="group bg-white dark:bg-surface-dark p-5 rounded-xl border border-slate-200 dark:border-border-dark hover:border-primary/50 transition-all shadow-sm hover:shadow-md relative overflow-hidden">
+<div class="flex items-start justify-between relative z-10">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center text-green-600 dark:text-green-400">
+<span class="material-icons-round text-[28px]">shopping_basket</span>
+</div>
+<div>
+<h3 class="font-bold text-lg dark:text-white">Groceries</h3>
+<p class="text-xs text-slate-500 dark:text-slate-400">Daily essentials and food items</p>
+</div>
+</div>
+<div class="flex items-center gap-1">
+<button class="p-2 text-slate-400 hover:text-primary transition-colors">
+<span class="material-icons-round text-[20px]">edit</span>
+</button>
+<button class="p-2 text-slate-400 hover:text-rose-500 transition-colors">
+<span class="material-icons-round text-[20px]">delete_outline</span>
+</button>
+</div>
+</div>
+<div class="mt-6 flex items-center justify-between relative z-10">
+<span class="px-3 py-1 bg-primary/10 text-primary text-xs font-semibold rounded-full">85 Products</span>
+<span class="text-xs text-slate-400">Updated 5 days ago</span>
+</div>
+<div class="absolute right-0 bottom-0 opacity-5 -mb-6 -mr-4 group-hover:scale-110 transition-transform">
+<span class="material-icons-round text-[120px]">shopping_basket</span>
+</div>
+</div>
+<!-- Category Card 3 -->
+<div class="group bg-white dark:bg-surface-dark p-5 rounded-xl border border-slate-200 dark:border-border-dark hover:border-primary/50 transition-all shadow-sm hover:shadow-md relative overflow-hidden">
+<div class="flex items-start justify-between relative z-10">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-amber-100 dark:bg-amber-900/30 rounded-lg flex items-center justify-center text-amber-600 dark:text-amber-400">
+<span class="material-icons-round text-[28px]">local_cafe</span>
+</div>
+<div>
+<h3 class="font-bold text-lg dark:text-white">Beverages</h3>
+<p class="text-xs text-slate-500 dark:text-slate-400">Hot drinks, soda, and water</p>
+</div>
+</div>
+<div class="flex items-center gap-1">
+<button class="p-2 text-slate-400 hover:text-primary transition-colors">
+<span class="material-icons-round text-[20px]">edit</span>
+</button>
+<button class="p-2 text-slate-400 hover:text-rose-500 transition-colors">
+<span class="material-icons-round text-[20px]">delete_outline</span>
+</button>
+</div>
+</div>
+<div class="mt-6 flex items-center justify-between relative z-10">
+<span class="px-3 py-1 bg-primary/10 text-primary text-xs font-semibold rounded-full">56 Products</span>
+<span class="text-xs text-slate-400">Updated 1 week ago</span>
+</div>
+<div class="absolute right-0 bottom-0 opacity-5 -mb-6 -mr-4 group-hover:scale-110 transition-transform">
+<span class="material-icons-round text-[120px]">local_cafe</span>
+</div>
+</div>
+<!-- Category Card 4 -->
+<div class="group bg-white dark:bg-surface-dark p-5 rounded-xl border border-slate-200 dark:border-border-dark hover:border-primary/50 transition-all shadow-sm hover:shadow-md relative overflow-hidden">
+<div class="flex items-start justify-between relative z-10">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center text-purple-600 dark:text-purple-400">
+<span class="material-icons-round text-[28px]">checkroom</span>
+</div>
+<div>
+<h3 class="font-bold text-lg dark:text-white">Fashion</h3>
+<p class="text-xs text-slate-500 dark:text-slate-400">Clothing and apparel items</p>
+</div>
+</div>
+<div class="flex items-center gap-1">
+<button class="p-2 text-slate-400 hover:text-primary transition-colors">
+<span class="material-icons-round text-[20px]">edit</span>
+</button>
+<button class="p-2 text-slate-400 hover:text-rose-500 transition-colors">
+<span class="material-icons-round text-[20px]">delete_outline</span>
+</button>
+</div>
+</div>
+<div class="mt-6 flex items-center justify-between relative z-10">
+<span class="px-3 py-1 bg-primary/10 text-primary text-xs font-semibold rounded-full">214 Products</span>
+<span class="text-xs text-slate-400">Updated 3 hours ago</span>
+</div>
+<div class="absolute right-0 bottom-0 opacity-5 -mb-6 -mr-4 group-hover:scale-110 transition-transform">
+<span class="material-icons-round text-[120px]">checkroom</span>
+</div>
+</div>
+<!-- Category Card 5 -->
+<div class="group bg-white dark:bg-surface-dark p-5 rounded-xl border border-slate-200 dark:border-border-dark hover:border-primary/50 transition-all shadow-sm hover:shadow-md relative overflow-hidden">
+<div class="flex items-start justify-between relative z-10">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-cyan-100 dark:bg-cyan-900/30 rounded-lg flex items-center justify-center text-cyan-600 dark:text-cyan-400">
+<span class="material-icons-round text-[28px]">cleaning_services</span>
+</div>
+<div>
+<h3 class="font-bold text-lg dark:text-white">Cleaning</h3>
+<p class="text-xs text-slate-500 dark:text-slate-400">Home and industrial cleaning supplies</p>
+</div>
+</div>
+<div class="flex items-center gap-1">
+<button class="p-2 text-slate-400 hover:text-primary transition-colors">
+<span class="material-icons-round text-[20px]">edit</span>
+</button>
+<button class="p-2 text-slate-400 hover:text-rose-500 transition-colors">
+<span class="material-icons-round text-[20px]">delete_outline</span>
+</button>
+</div>
+</div>
+<div class="mt-6 flex items-center justify-between relative z-10">
+<span class="px-3 py-1 bg-rose-500/10 text-rose-500 text-xs font-semibold rounded-full">0 Products</span>
+<span class="text-xs text-slate-400">Created 1 day ago</span>
+</div>
+<div class="absolute right-0 bottom-0 opacity-5 -mb-6 -mr-4 group-hover:scale-110 transition-transform">
+<span class="material-icons-round text-[120px]">cleaning_services</span>
+</div>
+</div>
+<!-- Add New Card Placeholder -->
+<button class="group border-2 border-dashed border-slate-200 dark:border-border-dark hover:border-primary hover:bg-primary/5 p-5 rounded-xl transition-all flex flex-col items-center justify-center gap-2 min-h-[160px]">
+<div class="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-400 group-hover:bg-primary group-hover:text-white transition-all">
+<span class="material-icons-round text-[28px]">add</span>
+</div>
+<span class="font-semibold text-slate-400 group-hover:text-primary transition-all">Quick Add Category</span>
+</button>
+</div>
+<!-- Add Category Form (Quick Action Panel) -->
+<div class="mt-12">
+<h3 class="text-lg font-bold mb-6 dark:text-white">Quick Add Panel</h3>
+<div class="bg-white dark:bg-surface-dark p-6 rounded-xl border border-slate-200 dark:border-border-dark">
+<form class="grid grid-cols-1 md:grid-cols-4 gap-6">
+<div class="md:col-span-1">
+<label class="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Category Name</label>
+<input class="w-full bg-slate-50 dark:bg-background-dark/50 border border-slate-200 dark:border-border-dark rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-primary focus:outline-none dark:text-white" placeholder="e.g. Household" type="text"/>
+</div>
+<div class="md:col-span-1">
+<label class="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Icon</label>
+<select class="w-full bg-slate-50 dark:bg-background-dark/50 border border-slate-200 dark:border-border-dark rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-primary focus:outline-none dark:text-white">
+<option>Inventory (Default)</option>
+<option>Devices</option>
+<option>Shopping Bag</option>
+<option>Health</option>
+<option>Home</option>
+</select>
+</div>
+<div class="md:col-span-1">
+<label class="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Description</label>
+<input class="w-full bg-slate-50 dark:bg-background-dark/50 border border-slate-200 dark:border-border-dark rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-primary focus:outline-none dark:text-white" placeholder="Short summary..." type="text"/>
+</div>
+<div class="md:col-span-1 flex items-end">
+<button class="w-full bg-primary text-white font-bold py-2.5 rounded-lg hover:bg-primary/90 transition-all shadow-md" type="submit">
+                            Create Category
+                        </button>
+</div>
+</form>
+</div>
+</div>
+</main>
+<!-- Floating Action Button (Mobile Only) -->
+<button class="lg:hidden fixed bottom-8 right-8 w-14 h-14 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center z-[100] hover:scale-110 active:scale-95 transition-all">
+<span class="material-icons-round text-[32px]">add</span>
+</button>
+</body></html>

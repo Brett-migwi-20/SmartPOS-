@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Store &amp; System Settings | SmartPOS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "primary": "#2b8cee",
+                "background-light": "#f6f7f8",
+                "background-dark": "#101922",
+                "surface-dark": "#1a2632",
+                "border-dark": "#2d3d4d"
+              },
+              fontFamily: {
+                "display": ["Inter"]
+              },
+              borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+            },
+          },
+        }
+      </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex">
+<!-- Sidebar Navigation -->
+<aside class="w-64 border-r border-slate-200 dark:border-border-dark hidden lg:flex flex-col bg-white dark:bg-surface-dark sticky top-0 h-screen">
+<div class="p-6 flex items-center gap-3">
+<div class="w-8 h-8 bg-primary rounded flex items-center justify-center text-white">
+<span class="material-icons text-xl">point_of_sale</span>
+</div>
+<span class="font-bold text-xl tracking-tight">SmartPOS</span>
+</div>
+<nav class="flex-1 px-4 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-primary/10 transition-colors" href="#">
+<span class="material-icons">dashboard</span> Dashboard
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-primary/10 transition-colors" href="#">
+<span class="material-icons">shopping_cart</span> Sales
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-primary/10 transition-colors" href="#">
+<span class="material-icons">inventory_2</span> Inventory
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-primary/10 transition-colors" href="#">
+<span class="material-icons">people</span> Customers
+            </a>
+<div class="pt-4 pb-2 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider">Configuration</div>
+<a class="flex items-center gap-3 px-3 py-2 rounded bg-primary text-white" href="#">
+<span class="material-icons">settings</span> System Settings
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-primary/10 transition-colors" href="#">
+<span class="material-icons">manage_accounts</span> Staff Roles
+            </a>
+</nav>
+<div class="p-4 border-t border-slate-200 dark:border-border-dark">
+<div class="flex items-center gap-3 px-3 py-2">
+<div class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
+<span class="material-icons text-primary text-sm">person</span>
+</div>
+<div>
+<p class="text-sm font-medium">Admin User</p>
+<p class="text-xs text-slate-500">Store Manager</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 overflow-y-auto">
+<!-- Sticky Header Actions -->
+<header class="sticky top-0 z-10 flex items-center justify-between px-8 py-4 bg-white/80 dark:bg-surface-dark/80 backdrop-blur-md border-b border-slate-200 dark:border-border-dark">
+<div>
+<h1 class="text-2xl font-bold">Store &amp; System Settings</h1>
+<p class="text-sm text-slate-500 dark:text-slate-400">Manage your business identity and global application parameters.</p>
+</div>
+<div class="flex gap-3">
+<button class="px-4 py-2 rounded-lg border border-slate-300 dark:border-border-dark hover:bg-slate-50 dark:hover:bg-primary/5 transition-colors font-medium text-sm">
+                    Discard Changes
+                </button>
+<button class="px-6 py-2 rounded-lg bg-primary hover:bg-primary/90 text-white font-medium text-sm shadow-lg shadow-primary/20 transition-all flex items-center gap-2">
+<span class="material-icons text-sm">save</span> Save Settings
+                </button>
+</div>
+</header>
+<div class="max-w-4xl mx-auto p-8 space-y-8">
+<!-- Section: Store Details -->
+<section class="bg-white dark:bg-surface-dark rounded-xl border border-slate-200 dark:border-border-dark shadow-sm overflow-hidden">
+<div class="p-6 border-b border-slate-200 dark:border-border-dark flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-icons">storefront</span>
+</div>
+<div>
+<h2 class="text-lg font-semibold">Store Details</h2>
+<p class="text-sm text-slate-500">Public information about your business.</p>
+</div>
+</div>
+<div class="p-6 grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Logo Upload -->
+<div class="md:col-span-1">
+<label class="block text-sm font-medium text-slate-500 dark:text-slate-400 mb-3 uppercase tracking-wider">Store Logo</label>
+<div class="relative group">
+<div class="w-full aspect-square rounded-xl border-2 border-dashed border-slate-300 dark:border-border-dark flex flex-col items-center justify-center gap-2 hover:border-primary/50 transition-colors cursor-pointer bg-slate-50 dark:bg-background-dark/50">
+<img alt="Store Logo" class="w-24 h-24 object-contain mb-2 opacity-80 group-hover:opacity-100 transition-opacity" data-alt="Modern geometric business logo placeholder" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAb80fPXtZiE6EMeFVyDBWu_wc5Krpq7BmoJNB0jtl_PvA9G-64ClBgHwc65tuLA-rUZODGu7juo64IQPwkdYTQ6UXwdcNA--3o1PDya63hJh__HwzYBslFg6afC5KtkVGwS0j6gqahegWdEbZY8_t-FCk139rONxLsjkKMkM9134RDOJ8L60tYatg2sQ7lydcZWpQtIRLBCzljzJ9DK-V64e_uxJbc8qQ4UoRFj_A1jAA1n4V2zV-M18e0u9KJpZhwaEcfmsBiDU0p"/>
+<span class="text-xs text-primary font-medium">Update Logo</span>
+<span class="text-[10px] text-slate-400 uppercase">PNG, JPG up to 2MB</span>
+</div>
+</div>
+</div>
+<!-- Form Fields -->
+<div class="md:col-span-2 space-y-4">
+<div>
+<label class="block text-sm font-medium mb-1">Store Name</label>
+<input class="w-full bg-slate-50 dark:bg-background-dark border-slate-200 dark:border-border-dark rounded-lg focus:ring-primary focus:border-primary" type="text" value="SmartPOS Retail Hub"/>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div>
+<label class="block text-sm font-medium mb-1">Contact Email</label>
+<input class="w-full bg-slate-50 dark:bg-background-dark border-slate-200 dark:border-border-dark rounded-lg focus:ring-primary focus:border-primary" type="email" value="hello@smartpos.io"/>
+</div>
+<div>
+<label class="block text-sm font-medium mb-1">Phone Number</label>
+<input class="w-full bg-slate-50 dark:bg-background-dark border-slate-200 dark:border-border-dark rounded-lg focus:ring-primary focus:border-primary" type="tel" value="+1 (555) 000-1234"/>
+</div>
+</div>
+<div>
+<label class="block text-sm font-medium mb-1">Physical Address</label>
+<textarea class="w-full bg-slate-50 dark:bg-background-dark border-slate-200 dark:border-border-dark rounded-lg focus:ring-primary focus:border-primary" placeholder="Street address, city, state, zip code..." rows="3">123 Tech Avenue, Innovation District, Silicon Valley, CA 94025</textarea>
+</div>
+</div>
+</div>
+</section>
+<!-- Section: Tax & Currency -->
+<section class="bg-white dark:bg-surface-dark rounded-xl border border-slate-200 dark:border-border-dark shadow-sm overflow-hidden">
+<div class="p-6 border-b border-slate-200 dark:border-border-dark flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-500">
+<span class="material-icons">payments</span>
+</div>
+<div>
+<h2 class="text-lg font-semibold">Financial Configuration</h2>
+<p class="text-sm text-slate-500">Tax rates and currency display preferences.</p>
+</div>
+</div>
+<div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+<div>
+<label class="block text-sm font-medium mb-1">Default Currency</label>
+<select class="w-full bg-slate-50 dark:bg-background-dark border-slate-200 dark:border-border-dark rounded-lg focus:ring-primary focus:border-primary">
+<option value="USD">USD - United States Dollar ($)</option>
+<option value="EUR">EUR - Euro (€)</option>
+<option value="GBP">GBP - British Pound (£)</option>
+<option value="INR">INR - Indian Rupee (₹)</option>
+</select>
+</div>
+<div>
+<label class="block text-sm font-medium mb-1">Default Tax Percentage (VAT/GST)</label>
+<div class="relative">
+<input class="w-full bg-slate-50 dark:bg-background-dark border-slate-200 dark:border-border-dark rounded-lg focus:ring-primary focus:border-primary pr-12" step="0.01" type="number" value="15.00"/>
+<div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none text-slate-400 font-medium">
+                                %
+                            </div>
+</div>
+</div>
+<div class="md:col-span-2">
+<div class="flex items-center justify-between p-4 rounded-lg bg-slate-50 dark:bg-background-dark/50 border border-slate-200 dark:border-border-dark">
+<div>
+<h4 class="text-sm font-semibold">Tax Inclusive Pricing</h4>
+<p class="text-xs text-slate-500">Show final price including taxes on product cards.</p>
+</div>
+<div class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section: Receipt Customization -->
+<section class="bg-white dark:bg-surface-dark rounded-xl border border-slate-200 dark:border-border-dark shadow-sm overflow-hidden">
+<div class="p-6 border-b border-slate-200 dark:border-border-dark flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-500">
+<span class="material-icons">receipt_long</span>
+</div>
+<div>
+<h2 class="text-lg font-semibold">Receipt &amp; Branding</h2>
+<p class="text-sm text-slate-500">Customize how your printed and digital receipts look.</p>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<div>
+<label class="block text-sm font-medium mb-1">Receipt Header Text</label>
+<input class="w-full bg-slate-50 dark:bg-background-dark border-slate-200 dark:border-border-dark rounded-lg focus:ring-primary focus:border-primary" type="text" value="Thank you for shopping with us!"/>
+</div>
+<div>
+<label class="block text-sm font-medium mb-1">Receipt Footer / Policy</label>
+<textarea class="w-full bg-slate-50 dark:bg-background-dark border-slate-200 dark:border-border-dark rounded-lg focus:ring-primary focus:border-primary" placeholder="e.g. Items can be returned within 30 days with valid receipt." rows="2">Returns accepted within 14 days with original tags. Gift cards are non-refundable.</textarea>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+<label class="flex items-center gap-3 p-3 rounded-lg border border-slate-200 dark:border-border-dark cursor-pointer hover:bg-slate-50 dark:hover:bg-primary/5 transition-colors">
+<input checked="" class="w-4 h-4 text-primary rounded border-slate-300 dark:border-border-dark focus:ring-primary bg-transparent" type="checkbox"/>
+<span class="text-sm font-medium">Show Store Logo on Receipt</span>
+</label>
+<label class="flex items-center gap-3 p-3 rounded-lg border border-slate-200 dark:border-border-dark cursor-pointer hover:bg-slate-50 dark:hover:bg-primary/5 transition-colors">
+<input checked="" class="w-4 h-4 text-primary rounded border-slate-300 dark:border-border-dark focus:ring-primary bg-transparent" type="checkbox"/>
+<span class="text-sm font-medium">Print QR Code for Digital Receipt</span>
+</label>
+</div>
+</div>
+</section>
+<!-- Section: System Localization -->
+<section class="bg-white dark:bg-surface-dark rounded-xl border border-slate-200 dark:border-border-dark shadow-sm overflow-hidden mb-12">
+<div class="p-6 border-b border-slate-200 dark:border-border-dark flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-500">
+<span class="material-icons">language</span>
+</div>
+<div>
+<h2 class="text-lg font-semibold">Localization</h2>
+<p class="text-sm text-slate-500">Time and date formats for system logs and reports.</p>
+</div>
+</div>
+<div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+<div>
+<label class="block text-sm font-medium mb-1">Business Timezone</label>
+<select class="w-full bg-slate-50 dark:bg-background-dark border-slate-200 dark:border-border-dark rounded-lg focus:ring-primary focus:border-primary">
+<option>(GMT-08:00) Pacific Time (US &amp; Canada)</option>
+<option>(GMT+00:00) Western European Time</option>
+<option>(GMT+05:30) India Standard Time</option>
+</select>
+</div>
+<div>
+<label class="block text-sm font-medium mb-1">Date Display Format</label>
+<select class="w-full bg-slate-50 dark:bg-background-dark border-slate-200 dark:border-border-dark rounded-lg focus:ring-primary focus:border-primary">
+<option>MM / DD / YYYY</option>
+<option>DD / MM / YYYY</option>
+<option>YYYY - MM - DD</option>
+</select>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Success Feedback Overlay (Hidden by default, used for interaction concept) -->
+<div class="fixed bottom-8 right-8 flex items-center gap-3 bg-emerald-600 text-white px-6 py-3 rounded-xl shadow-2xl transition-transform translate-y-24">
+<span class="material-icons">check_circle</span>
+<span class="font-medium">Settings saved successfully!</span>
+</div>
+</body></html>
